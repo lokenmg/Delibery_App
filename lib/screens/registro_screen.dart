@@ -18,8 +18,8 @@ class _RegistroState extends State<Registro> {
         title: const Text("Registro"),
       ),
       body: Container(
-        margin: const EdgeInsets.all(25),
-        child: Column(children: [
+        padding: const EdgeInsets.all(25),
+        child: ListView(children: [
           const Padding(padding: EdgeInsets.all(10)),
           Title(
               color: Colors.black,
