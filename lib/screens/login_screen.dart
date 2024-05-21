@@ -1,4 +1,4 @@
-import 'package:delibery_app/validadores/validadores.dart';
+import 'package:delibery_app/logica/validadores/validadores.dart';
 import 'package:flutter/material.dart';
 
 import 'formularios/login_form.dart';
@@ -8,15 +8,15 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _formkey = GlobalKey<FormState>();
+    final formkey = GlobalKey<FormState>();
     final validador = Validadores();
     return Scaffold(
       body: Column(
         children: [
-          Title(color: Colors.black, child: Text("Iniciar sesion")),
-          FormularioLogin(formkey: _formkey, validador: validador),
+          Title(color: Colors.black, child: const Text("Iniciar sesion")),
+          FormularioLogin(formkey: formkey, validador: validador),
           MaterialButton(
-              child: Text("Registrarme"),
+              child: const Text("Registrarme"),
               onPressed: () {
                 Navigator.pushNamed(context, "/registro");
               })

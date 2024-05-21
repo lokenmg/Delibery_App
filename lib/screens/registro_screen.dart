@@ -1,6 +1,9 @@
 import 'package:delibery_app/entidades/enums/enum_usuarios.dart';
 import 'package:delibery_app/screens/formularios/resgistrosForms/registro_encargado_form.dart';
+import 'package:delibery_app/screens/formularios/resgistrosForms/registro_repartidor_form.dart';
 import 'package:flutter/material.dart';
+
+import 'formularios/resgistrosForms/registro_cliente_form.dart';
 
 class Registro extends StatefulWidget {
   const Registro({super.key});
@@ -46,7 +49,12 @@ class _RegistroState extends State<Registro> {
                 setState(() {});
                 _usuarioSeleccionado = value;
               }),
-          const FormRegistroEncargado()
+          if (_usuarioSeleccionado == EnumUsuarios.encargado)
+            const FormRegistroEncargado(),
+          if (_usuarioSeleccionado == EnumUsuarios.cliente)
+            const FormRegistrocliente(),
+          if (_usuarioSeleccionado == EnumUsuarios.repartidor)
+            const FormRegistroRepartidor(),
         ]),
       ),
     );

@@ -1,4 +1,4 @@
-import 'package:delibery_app/validadores/validadores.dart';
+import 'package:delibery_app/logica/validadores/validadores.dart';
 import 'package:flutter/material.dart';
 
 class FormularioLogin extends StatelessWidget {

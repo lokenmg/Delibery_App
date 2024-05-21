@@ -1,8 +1,18 @@
+import 'dart:io';
+
 import 'package:delibery_app/entidades/enums/enum_genero.dart';
+import 'package:delibery_app/logica/validadores/control_imagenes.dart';
 import 'package:delibery_app/modelos/apis/copomex.dart';
+import 'package:delibery_app/modelos/funciones_firebase.dart';
 import 'package:delibery_app/modelos/geocidong_model.dart';
-import 'package:delibery_app/validadores/validadores.dart';
+import 'package:delibery_app/logica/validadores/validadores.dart';
+import 'package:delibery_app/modelos/models/apiModels/encargado_model.dart';
+import 'package:delibery_app/modelos/models/image_models.dart';
+import 'package:delibery_app/services/registros_services.dart';
 import 'package:flutter/material.dart';
+
+import '../../componentes/titulos.dart';
+import '../componentes/dropdounsbuton/date_picker.dart';
 
 class FormRegistroEncargado extends StatefulWidget {
   const FormRegistroEncargado({super.key});
@@ -44,6 +54,17 @@ bool _vercontrasenia = true;
 class _FormRegistroEncargadoState extends State<FormRegistroEncargado> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final validar = Validadores();
+
+  File? _curp;
+  File? _ine;
+  File? _antecedentes;
+  File? _urlFoto;
+
+  bool curpCheck = false;
+  bool ineCheck = false;
+  bool antecedentesCheck = false;
+  bool urlFotoCheck = false;
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -85,7 +106,7 @@ class _FormRegistroEncargadoState extends State<FormRegistroEncargado> {
               return null;
             },
           ),
-          Padding(padding: const EdgeInsets.all(3)),
+          const Padding(padding: EdgeInsets.all(3)),
           const Padding(padding: EdgeInsets.all(3)),
           TextFormField(
             decoration: const InputDecoration(labelText: "Email"),
@@ -148,11 +169,81 @@ class _FormRegistroEncargadoState extends State<FormRegistroEncargado> {
               value: _generoSeleccionado,
               onChanged: (EnumGenero? value) {
                 setState(() {
-                  _generoSeleccionado = value;
+                  if (value != null) {
+                    _generoSeleccionado = value;
+                  }
                 });
               }),
           const Padding(padding: EdgeInsets.all(3)),
-          const Text("Domicilio"),
+          DatePickerField(
+            controller: fechaNacimientoController,
+            labelText: 'Fecha de Nacimiento',
+          ),
+          const Padding(padding: EdgeInsets.all(3)),
+          const Titulos(title: "ingresar foto de perfil"),
+          Row(
+            children: [
+              _urlFoto == null
+                  ? Container(
+                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                      height: 100,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black)),
+                      child: const Text('Imagen no seleccionada.'))
+                  : Image.file(
+                      _urlFoto!,
+                      height: 100,
+                    ),
+              urlFotoCheck
+                  ? const Icon(Icons.check_circle,
+                      color: Colors.green, size: 50)
+                  : const Icon(
+                      Icons.check_circle,
+                      color: Colors.grey,
+                      size: 50,
+                    )
+            ],
+          ),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  ControlImagenes controlImagenes = ControlImagenes();
+                  controlImagenes.seleccionarImagen().then((File? value) {
+                    setState(() {
+                      _urlFoto = value;
+                    });
+                  });
+                },
+                child: const Text('seleccionar imagen'),
+              ),
+              const Padding(padding: EdgeInsets.all(10)),
+              ElevatedButton(
+                onPressed: () {
+                  FuncionesFirebase firebase = FuncionesFirebase();
+                  firebase.uploadImage(_urlFoto!, "perfil").then(
+                    (ImageModel value) {
+                      if (value.errorMessage != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(value.errorMessage!)));
+                      } else {
+                        urlFotoController.text = value.url!;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Imagen subida correctamente')));
+                        setState(() {
+                          urlFotoCheck = true;
+                        });
+                      }
+                    },
+                  );
+                },
+                child: const Text('Subir imagen'),
+              ),
+            ],
+          ),
+          const Padding(padding: EdgeInsets.all(3)),
+          const Titulos(title: "Dirección"),
           const Padding(padding: EdgeInsets.all(3)),
           TextFormField(
             decoration: const InputDecoration(labelText: "Código Postal"),
@@ -264,6 +355,245 @@ class _FormRegistroEncargadoState extends State<FormRegistroEncargado> {
             },
           ),
           const Padding(padding: EdgeInsets.all(3)),
+          TextFormField(
+            controller: referenciaController,
+            decoration: const InputDecoration(labelText: "Referencia"),
+          ),
+          const Padding(padding: EdgeInsets.all(3)),
+          const Titulos(title: "Documentos"),
+          const Padding(padding: EdgeInsets.all(3)),
+          const Titulos(title: "ingresar foto su curp"),
+          Row(
+            children: [
+              _curp == null
+                  ? Container(
+                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                      height: 100,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black)),
+                      child: const Text('Imagen no seleccionada.'))
+                  : Image.file(
+                      _curp!,
+                      height: 100,
+                    ),
+              curpCheck
+                  ? const Icon(Icons.check_circle,
+                      color: Colors.green, size: 50)
+                  : const Icon(
+                      Icons.check_circle,
+                      color: Colors.grey,
+                      size: 50,
+                    )
+            ],
+          ),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  ControlImagenes controlImagenes = ControlImagenes();
+                  controlImagenes.seleccionarImagen().then((File? value) {
+                    setState(() {
+                      _curp = value;
+                    });
+                  });
+                },
+                child: const Text('seleccionar imagen'),
+              ),
+              const Padding(padding: EdgeInsets.all(10)),
+              ElevatedButton(
+                onPressed: () {
+                  FuncionesFirebase firebase = FuncionesFirebase();
+                  firebase.uploadImage(_curp!, "curp").then(
+                    (ImageModel value) {
+                      if (value.errorMessage != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(value.errorMessage!)));
+                      } else {
+                        curpController.text = value.url!;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Imagen subida correctamente')));
+                        setState(() {
+                          curpCheck = true;
+                        });
+                      }
+                    },
+                  );
+                },
+                child: const Text('Subir imagen'),
+              ),
+            ],
+          ),
+          const Padding(padding: EdgeInsets.all(3)),
+          const Titulos(title: "Ingresar foto de su INE"),
+          const Padding(padding: EdgeInsets.all(3)),
+          Row(
+            children: [
+              _ine == null
+                  ? Container(
+                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                      height: 100,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black)),
+                      child: const Text('Imagen no seleccionada.'))
+                  : Image.file(
+                      _ine!,
+                      height: 100,
+                    ),
+              ineCheck
+                  ? const Icon(Icons.check_circle,
+                      color: Colors.green, size: 50)
+                  : const Icon(
+                      Icons.check_circle,
+                      color: Colors.grey,
+                      size: 50,
+                    )
+            ],
+          ),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  ControlImagenes controlImagenes = ControlImagenes();
+                  controlImagenes.seleccionarImagen().then((File? value) {
+                    setState(() {
+                      _ine = value;
+                    });
+                  });
+                },
+                child: const Text('Seleccionar imagen'),
+              ),
+              const Padding(padding: EdgeInsets.all(10)),
+              ElevatedButton(
+                onPressed: () {
+                  FuncionesFirebase firebase = FuncionesFirebase();
+                  firebase.uploadImage(_ine!, "ine").then(
+                    (ImageModel value) {
+                      if (value.errorMessage != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(value.errorMessage!)));
+                      } else {
+                        ineController.text = value.url!;
+                        setState(() {
+                          ineCheck = true;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Imagen subida correctamente')));
+                      }
+                    },
+                  );
+                },
+                child: const Text('Subir imagen'),
+              ),
+            ],
+          ),
+          const Titulos(
+              title:
+                  "Ingresar foto de su Documento de antecedentes no penales"),
+          Row(
+            children: [
+              _antecedentes == null
+                  ? Container(
+                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                      height: 100,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black)),
+                      child: const Text('Imagen no seleccionada.'))
+                  : Image.file(
+                      _antecedentes!,
+                      height: 100,
+                    ),
+              antecedentesCheck
+                  ? const Icon(Icons.check_circle,
+                      color: Colors.green, size: 50)
+                  : const Icon(
+                      Icons.check_circle,
+                      color: Colors.grey,
+                      size: 50,
+                    )
+            ],
+          ),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  ControlImagenes controlImagenes = ControlImagenes();
+                  controlImagenes.seleccionarImagen().then((File? value) {
+                    setState(() {
+                      _antecedentes = value;
+                    });
+                  });
+                },
+                child: const Text('Seleccionar imagen'),
+              ),
+              const Padding(padding: EdgeInsets.all(10)),
+              ElevatedButton(
+                onPressed: () {
+                  FuncionesFirebase firebase = FuncionesFirebase();
+                  firebase.uploadImage(_antecedentes!, "Antecedentes").then(
+                    (ImageModel value) {
+                      if (value.errorMessage != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(value.errorMessage!)));
+                      } else {
+                        antecedentesController.text = value.url!;
+                        setState(() {
+                          antecedentesCheck = true;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Imagen subida correctamente')));
+                      }
+                    },
+                  );
+                },
+                child: const Text('Subir imagen'),
+              ),
+            ],
+          ),
+          MaterialButton(
+              onPressed: () {
+                List<String> fechaSeparada =
+                    fechaNacimientoController.text.split("-");
+                if (_formkey.currentState!.validate()) {
+                  Direccion direccion = Direccion(
+                    cp: int.parse(cpController.text),
+                    municipio: municipioController.text,
+                    colonia: coloniaController.text,
+                    estado: estadoController.text,
+                    calle1: calle1Controller.text,
+                    calle2: calle2Controller.text,
+                    calle3: calle3Controller.text,
+                    numeroExterior: numeroExteriorController.text,
+                    numeroInterior: numeroInteriorController.text,
+                    referencia: referenciaController.text,
+                  );
+
+                  EncargadoModel encargadoModel = EncargadoModel(
+                    direccion: direccion,
+                    email: emailController.text,
+                    fechaNacimiento:
+                        "${fechaSeparada[2]}/${fechaSeparada[1]}/${fechaSeparada[0]}",
+                    idGenero: (_generoSeleccionado!.index + 1),
+                    nombre: nombreController.text,
+                    password: passwordController.text,
+                    telefono: telefonoController.text,
+                    urlFoto: urlFotoController.text,
+                    ine: ineController.text,
+                    antecedentes: antecedentesController.text,
+                    curp: curpController.text,
+                  );
+
+                  RegistrosServices()
+                      .registrarEncargado(encargadoModel.toJson())
+                      .then((value) => ScaffoldMessenger.of(context)
+                          .showSnackBar(const SnackBar(
+                              content: Text('Registro exitoso'))));
+                  Navigator.pushNamed(context, "/login");
+                }
+              },
+              child: const Text("Registrar"))
         ],
       ),
     );

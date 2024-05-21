@@ -15,8 +15,8 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final _routes = {
-    "/login": (context) => Login(),
-    "/registro": (context) => Registro(),
+    "/login": (context) => const Login(),
+    "/registro": (context) => const Registro(),
   };
   MyApp({super.key});
 
