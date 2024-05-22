@@ -17,12 +17,15 @@ class MyApp extends StatelessWidget {
   final _routes = {
     "/login": (context) => const Login(),
     "/registro": (context) => const Registro(),
+    "/home": (context) => const HomeScreen(),
+    "/AddStore": (context) => const AddStore(),
   };
   MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Material App',
       initialRoute: "/login",
       routes: _routes,

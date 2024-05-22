@@ -1,4 +1,6 @@
 import 'package:delibery_app/logica/validadores/validadores.dart';
+import 'package:delibery_app/modelos/models/apiModels/login_model.dart';
+import 'package:delibery_app/services/registros_services.dart';
 import 'package:flutter/material.dart';
 
 class FormularioLogin extends StatelessWidget {
@@ -48,7 +50,25 @@ class FormularioLogin extends StatelessWidget {
           MaterialButton(
               child: const Text("Acceder"),
               onPressed: () {
-                if (_formkey.currentState!.validate()) {}
+                if (_formkey.currentState!.validate()) {
+                  LoginModel loginModel = LoginModel(
+                      email: correoController.text,
+                      password: contraseniaController.text);
+
+                  RegistrosServices().login(loginModel.toJson()).then(
+                    (value) {
+                      if (value.token.isNotEmpty) {
+                        Navigator.pushReplacementNamed(context, '/home');
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Error al iniciar sesión"),
+                          ),
+                        );
+                      }
+                    },
+                  );
+                }
               })
         ],
       ),

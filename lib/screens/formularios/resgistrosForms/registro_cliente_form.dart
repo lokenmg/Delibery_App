@@ -8,7 +8,6 @@ import 'package:delibery_app/modelos/geocidong_model.dart';
 import 'package:delibery_app/logica/validadores/validadores.dart';
 import 'package:delibery_app/modelos/models/apiModels/cliente_model.dart';
 import 'package:delibery_app/modelos/models/image_models.dart';
-import 'package:delibery_app/screens/index.dart';
 import 'package:delibery_app/services/registros_services.dart';
 import 'package:flutter/material.dart';
 
