@@ -45,7 +45,7 @@ class CarritoComprasProvider extends ChangeNotifier {
   double get total {
     double total = 0;
     for (var element in carrito) {
-      total += element.subtotal!;
+      total += element.subtotal;
     }
     return total;
   }

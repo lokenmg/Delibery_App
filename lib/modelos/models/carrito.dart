@@ -2,10 +2,11 @@ import 'package:delibery_app/modelos/models/apiModels/producto_model_id.dart';
 
 class CarritoModel {
   ProductoModelId? producto;
-  int? cantidad;
-  double? subtotal;
+  int cantidad = 0;
+  int subtotal = 0;
 
-  CarritoModel({this.producto, this.cantidad, this.subtotal});
+  CarritoModel(
+      {required this.producto, required this.cantidad, required this.subtotal});
 
   factory CarritoModel.fromJson(Map<String, dynamic> json) => CarritoModel(
         producto: ProductoModelId.fromJson(json["producto"]),

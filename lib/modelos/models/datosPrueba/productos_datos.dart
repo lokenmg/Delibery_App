@@ -99,7 +99,7 @@ class ProductosDatos {
       id: 18,
       categoriasId: categoriasId,
       descripcion: 'Descripcion del producto 18',
-      descuento: 0,
+      descuento: 10,
       idTienda: 1,
       imagen:
           "https://firebasestorage.googleapis.com/v0/b/delibery-flutter.appspot.com/o/uploads%2F1715835810192.jpg?alt=media&token=b8c943b7-20d1-49b8-b20e-57b8f0741993",

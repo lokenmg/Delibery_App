@@ -1,5 +1,6 @@
 import 'package:delibery_app/modelos/models/providers/carrito_compras_provider.dart';
 import 'package:delibery_app/screens/index.dart';
+import 'package:delibery_app/screens/metodo_pago.dart';
 
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
     "/AddProduct": (context) => const AddProductScreen(),
     "/producto": (context) => const ProductoScreen(),
     "/carrito": (context) => const CarritoComprasScreen(),
+    "/metodoPago": (context) => const MetodoPago(),
   };
   MyApp({super.key});
 

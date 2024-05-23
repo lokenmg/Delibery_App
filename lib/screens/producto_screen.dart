@@ -1,5 +1,8 @@
 import 'package:delibery_app/modelos/models/apiModels/producto_model_id.dart';
+import 'package:delibery_app/modelos/models/carrito.dart';
+import 'package:delibery_app/modelos/models/providers/carrito_compras_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductoScreen extends StatefulWidget {
   const ProductoScreen({super.key});
@@ -9,6 +12,8 @@ class ProductoScreen extends StatefulWidget {
 }
 
 class _ProductoScreenState extends State<ProductoScreen> {
+  int total = 0;
+  int contador = 0;
   @override
   Widget build(BuildContext context) {
     final ProductoModelId argument =
@@ -38,7 +43,7 @@ class _ProductoScreenState extends State<ProductoScreen> {
               style: const TextStyle(fontSize: 16),
             ),
             Text(
-              'Precio \$${argument.precio}',
+              'Precio ${argument.precio.toString()}',
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             argument.descuento > 0
@@ -60,19 +65,44 @@ class _ProductoScreenState extends State<ProductoScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        (contador < 1) ? null : contador--;
+                        (argument.descuento != 0)
+                            ? total = (contador *
+                                argument.precio /** (argument.descuento/100)*/)
+                            : total = (contador * argument.precio);
+                      });
+                    },
                     icon: const Icon(Icons.remove),
                   ),
-                  const Text('1'),
+                  Text(contador.toString()),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        contador++;
+                        (argument.descuento != 0)
+                            ? total = (contador *
+                                argument.precio /** (argument.descuento/100)*/)
+                            : total = (contador * argument.precio);
+                      });
+                    },
                     icon: const Icon(Icons.add),
                   ),
+                  Text("Total: \$$total")
                 ],
               ),
             ),
             ElevatedButton(
-                onPressed: () {}, child: const Text('Agregar al carrito')),
+                onPressed: () {
+                  Provider.of<CarritoComprasProvider>(context, listen: false)
+                      .agregarCarrito(CarritoModel(
+                          cantidad: contador == 0 ? 1 : contador,
+                          producto: argument,
+                          subtotal: contador == 0 ? argument.precio : total));
+                },
+                child: const Text('Agregar al carrito')),
+            ElevatedButton(onPressed: () {}, child: const Text("comprar ahora"))
           ]),
         ));
   }
