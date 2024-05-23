@@ -1,9 +1,9 @@
 import 'package:delibery_app/entidades/enums/enum_usuarios.dart';
-import 'package:delibery_app/screens/formularios/resgistrosForms/registro_encargado_form.dart';
-import 'package:delibery_app/screens/formularios/resgistrosForms/registro_repartidor_form.dart';
+import 'package:delibery_app/screens/componentes/formularios/resgistrosForms/registro_encargado_form.dart';
+import 'package:delibery_app/screens/componentes/formularios/resgistrosForms/registro_repartidor_form.dart';
 import 'package:flutter/material.dart';
 
-import 'formularios/resgistrosForms/registro_cliente_form.dart';
+import 'componentes/formularios/resgistrosForms/registro_cliente_form.dart';
 
 class Registro extends StatefulWidget {
   const Registro({super.key});

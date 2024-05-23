@@ -12,8 +12,8 @@ class FormularioLogin extends StatelessWidget {
 
   final GlobalKey<FormState> _formkey;
   final Validadores validador;
-  TextEditingController correoController = TextEditingController();
-  TextEditingController contraseniaController = TextEditingController();
+  final TextEditingController correoController = TextEditingController();
+  final TextEditingController contraseniaController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

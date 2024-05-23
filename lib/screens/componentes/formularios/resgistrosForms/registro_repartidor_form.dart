@@ -6,19 +6,19 @@ import 'package:delibery_app/modelos/apis/copomex.dart';
 import 'package:delibery_app/modelos/funciones_firebase.dart';
 import 'package:delibery_app/modelos/geocidong_model.dart';
 import 'package:delibery_app/logica/validadores/validadores.dart';
-import 'package:delibery_app/modelos/models/apiModels/encargado_model.dart';
 import 'package:delibery_app/modelos/models/image_models.dart';
 import 'package:delibery_app/services/registros_services.dart';
 import 'package:flutter/material.dart';
 
-import '../../componentes/titulos.dart';
+import '../../../../modelos/models/apiModels/repartidor_model.dart';
+import '../../titulos.dart';
 import '../componentes/dropdounsbuton/date_picker.dart';
 
-class FormRegistroEncargado extends StatefulWidget {
-  const FormRegistroEncargado({super.key});
+class FormRegistroRepartidor extends StatefulWidget {
+  const FormRegistroRepartidor({super.key});
 
   @override
-  State<FormRegistroEncargado> createState() => _FormRegistroEncargadoState();
+  State<FormRegistroRepartidor> createState() => _FormRegistroRepartidorState();
 }
 
 Geocoding? _resultado;
@@ -49,9 +49,18 @@ TextEditingController numeroExteriorController = TextEditingController();
 TextEditingController numeroInteriorController = TextEditingController();
 TextEditingController referenciaController = TextEditingController();
 
+//automovil
+
+TextEditingController licenciaController = TextEditingController();
+TextEditingController placaController = TextEditingController();
+TextEditingController marcaController = TextEditingController();
+TextEditingController tipoController = TextEditingController();
+TextEditingController modeloController = TextEditingController();
+TextEditingController repuveController = TextEditingController();
+TextEditingController nivController = TextEditingController();
 bool _vercontrasenia = true;
 
-class _FormRegistroEncargadoState extends State<FormRegistroEncargado> {
+class _FormRegistroRepartidorState extends State<FormRegistroRepartidor> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final validar = Validadores();
 
@@ -59,6 +68,8 @@ class _FormRegistroEncargadoState extends State<FormRegistroEncargado> {
   File? _ine;
   File? _antecedentes;
   File? _urlFoto;
+  File? _licencia;
+  File? _repuve;
 
   bool curpCheck = false;
   bool ineCheck = false;
@@ -220,6 +231,11 @@ class _FormRegistroEncargadoState extends State<FormRegistroEncargado> {
               const Padding(padding: EdgeInsets.all(10)),
               ElevatedButton(
                 onPressed: () {
+                  if (_urlFoto == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Imagen no seleccionada')));
+                    return;
+                  }
                   FuncionesFirebase firebase = FuncionesFirebase();
                   firebase.uploadImage(_urlFoto!, "perfil").then(
                     (ImageModel value) {
@@ -402,6 +418,11 @@ class _FormRegistroEncargadoState extends State<FormRegistroEncargado> {
               const Padding(padding: EdgeInsets.all(10)),
               ElevatedButton(
                 onPressed: () {
+                  if (_urlFoto == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Imagen no seleccionada')));
+                    return;
+                  }
                   FuncionesFirebase firebase = FuncionesFirebase();
                   firebase.uploadImage(_curp!, "curp").then(
                     (ImageModel value) {
@@ -466,6 +487,11 @@ class _FormRegistroEncargadoState extends State<FormRegistroEncargado> {
               const Padding(padding: EdgeInsets.all(10)),
               ElevatedButton(
                 onPressed: () {
+                  if (_urlFoto == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Imagen no seleccionada')));
+                    return;
+                  }
                   FuncionesFirebase firebase = FuncionesFirebase();
                   firebase.uploadImage(_ine!, "ine").then(
                     (ImageModel value) {
@@ -530,6 +556,11 @@ class _FormRegistroEncargadoState extends State<FormRegistroEncargado> {
               const Padding(padding: EdgeInsets.all(10)),
               ElevatedButton(
                 onPressed: () {
+                  if (_urlFoto == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Imagen no seleccionada')));
+                    return;
+                  }
                   FuncionesFirebase firebase = FuncionesFirebase();
                   firebase.uploadImage(_antecedentes!, "Antecedentes").then(
                     (ImageModel value) {
@@ -552,41 +583,240 @@ class _FormRegistroEncargadoState extends State<FormRegistroEncargado> {
               ),
             ],
           ),
+          const Padding(padding: EdgeInsets.all(3)),
+          const Titulos(title: "información del automovil"),
+          const Padding(padding: EdgeInsets.all(3)),
+          TextFormField(
+            controller: tipoController,
+            decoration: const InputDecoration(labelText: "Tipo"),
+            validator: (value) {
+              if (validar.validarCampoVacio(value) != null) {
+                return validar.validarCampoVacio(value);
+              }
+              return null;
+            },
+          ),
+          const Padding(padding: EdgeInsets.all(3)),
+          TextFormField(
+            controller: modeloController,
+            decoration: const InputDecoration(labelText: "Modelo"),
+            validator: (value) {
+              if (validar.validarCampoVacio(value) != null) {
+                return validar.validarCampoVacio(value);
+              }
+              return null;
+            },
+          ),
+          const Padding(padding: EdgeInsets.all(3)),
+          TextFormField(
+            controller: marcaController,
+            decoration: const InputDecoration(labelText: "Marca"),
+            validator: (value) {
+              if (validar.validarCampoVacio(value) != null) {
+                return validar.validarCampoVacio(value);
+              }
+              return null;
+            },
+          ),
+          const Padding(padding: EdgeInsets.all(3)),
+          TextFormField(
+            controller: placaController,
+            decoration: const InputDecoration(labelText: "Placa"),
+            maxLength: 7,
+            validator: (value) {
+              if (validar.validarCampoVacio(value) != null) {
+                return validar.validarCampoVacio(value);
+              }
+              return null;
+            },
+          ),
+          const Padding(padding: EdgeInsets.all(3)),
+          TextFormField(
+            controller: nivController,
+            decoration: const InputDecoration(labelText: "NIV"),
+            maxLength: 17,
+            validator: (value) {
+              if (validar.validarCampoVacio(value) != null) {
+                return validar.validarCampoVacio(value);
+              }
+              return null;
+            },
+          ),
+          const Padding(padding: EdgeInsets.all(3)),
+          const Titulos(title: "Ingresar foto de su Repuve"),
+          Row(
+            children: [
+              _repuve == null
+                  ? Container(
+                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                      height: 100,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black)),
+                      child: const Text('Imagen no seleccionada.'))
+                  : Image.file(
+                      _repuve!,
+                      height: 100,
+                    ),
+              antecedentesCheck
+                  ? const Icon(Icons.check_circle,
+                      color: Colors.green, size: 50)
+                  : const Icon(
+                      Icons.check_circle,
+                      color: Colors.grey,
+                      size: 50,
+                    )
+            ],
+          ),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  ControlImagenes controlImagenes = ControlImagenes();
+                  controlImagenes.seleccionarImagen().then((File? value) {
+                    setState(() {
+                      _repuve = value;
+                    });
+                  });
+                },
+                child: const Text('Seleccionar imagen'),
+              ),
+              const Padding(padding: EdgeInsets.all(10)),
+              ElevatedButton(
+                onPressed: () {
+                  if (_urlFoto == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Imagen no seleccionada')));
+                    return;
+                  }
+                  FuncionesFirebase firebase = FuncionesFirebase();
+                  firebase.uploadImage(_repuve!, "Repuve").then(
+                    (ImageModel value) {
+                      if (value.errorMessage != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(value.errorMessage!)));
+                      } else {
+                        repuveController.text = value.url!;
+                        setState(() {
+                          antecedentesCheck = true;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Imagen subida correctamente')));
+                      }
+                    },
+                  );
+                },
+                child: const Text('Subir imagen'),
+              ),
+            ],
+          ),
+          const Titulos(title: "Ingresar foto de su Licencia"),
+          Row(
+            children: [
+              _licencia == null
+                  ? Container(
+                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                      height: 100,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black)),
+                      child: const Text('Imagen no seleccionada.'))
+                  : Image.file(
+                      _licencia!,
+                      height: 100,
+                    ),
+              antecedentesCheck
+                  ? const Icon(Icons.check_circle,
+                      color: Colors.green, size: 50)
+                  : const Icon(
+                      Icons.check_circle,
+                      color: Colors.grey,
+                      size: 50,
+                    )
+            ],
+          ),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  ControlImagenes controlImagenes = ControlImagenes();
+                  controlImagenes.seleccionarImagen().then((File? value) {
+                    setState(() {
+                      _licencia = value;
+                    });
+                  });
+                },
+                child: const Text('Seleccionar imagen'),
+              ),
+              const Padding(padding: EdgeInsets.all(10)),
+              ElevatedButton(
+                onPressed: () {
+                  if (_urlFoto == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Imagen no seleccionada')));
+                    return;
+                  }
+                  FuncionesFirebase firebase = FuncionesFirebase();
+                  firebase.uploadImage(_licencia!, "Licencia").then(
+                    (ImageModel value) {
+                      if (value.errorMessage != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(value.errorMessage!)));
+                      } else {
+                        licenciaController.text = value.url!;
+                        setState(() {
+                          antecedentesCheck = true;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Imagen subida correctamente')));
+                      }
+                    },
+                  );
+                },
+                child: const Text('Subir imagen'),
+              ),
+            ],
+          ),
+          const Padding(padding: EdgeInsets.all(3)),
           MaterialButton(
               onPressed: () {
                 List<String> fechaSeparada =
                     fechaNacimientoController.text.split("-");
                 if (_formkey.currentState!.validate()) {
-                  Direccion direccion = Direccion(
-                    cp: int.parse(cpController.text),
-                    municipio: municipioController.text,
-                    colonia: coloniaController.text,
-                    estado: estadoController.text,
-                    calle1: calle1Controller.text,
-                    calle2: calle2Controller.text,
-                    calle3: calle3Controller.text,
-                    numeroExterior: numeroExteriorController.text,
-                    numeroInterior: numeroInteriorController.text,
-                    referencia: referenciaController.text,
-                  );
-
-                  EncargadoModel encargadoModel = EncargadoModel(
-                    direccion: direccion,
-                    email: emailController.text,
-                    fechaNacimiento:
-                        "${fechaSeparada[2]}/${fechaSeparada[1]}/${fechaSeparada[0]}",
-                    idGenero: (_generoSeleccionado!.index + 1),
-                    nombre: nombreController.text,
-                    password: passwordController.text,
-                    telefono: telefonoController.text,
-                    urlFoto: urlFotoController.text,
-                    ine: ineController.text,
-                    antecedentes: antecedentesController.text,
-                    curp: curpController.text,
-                  );
+                  RepartidorModel repartidorModel = RepartidorModel(
+                      antecedentes: antecedentesController.text,
+                      curp: curpController.text,
+                      email: emailController.text,
+                      fechaNacimiento:
+                          "${fechaSeparada[2]}/${fechaSeparada[1]}/${fechaSeparada[0]}",
+                      idGenero: _generoSeleccionado!.index + 1,
+                      ine: ineController.text,
+                      nombre: nombreController.text,
+                      password: passwordController.text,
+                      telefono: telefonoController.text,
+                      licencia: licenciaController.text,
+                      vehiculo: Vehiculo(
+                          marca: marcaController.text,
+                          modelo: modeloController.text,
+                          niv: nivController.text,
+                          placa: placaController.text,
+                          repube: repuveController.text,
+                          tipo: tipoController.text),
+                      direccion: Direccion(
+                        cp: int.parse(cpController.text),
+                        municipio: municipioController.text,
+                        colonia: coloniaController.text,
+                        estado: estadoController.text,
+                        calle1: calle1Controller.text,
+                        calle2: calle2Controller.text,
+                        calle3: calle3Controller.text,
+                        numeroExterior: numeroExteriorController.text,
+                        numeroInterior: numeroInteriorController.text,
+                        referencia: referenciaController.text,
+                      ));
 
                   RegistrosServices()
-                      .registrarEncargado(encargadoModel.toJson())
+                      .registrarEncargado(repartidorModel.toJson())
                       .then((value) => ScaffoldMessenger.of(context)
                           .showSnackBar(const SnackBar(
                               content: Text('Registro exitoso'))));

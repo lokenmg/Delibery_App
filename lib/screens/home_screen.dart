@@ -1,3 +1,4 @@
+import 'package:delibery_app/screens/componentes/prodictos_listview.dart';
 import 'package:flutter/material.dart';
 
 import 'componentes/drawer.dart';
@@ -14,11 +15,19 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const MyDrawer(),
-      appBar: AppBar(
-        title: const Text('Delibery App'),
-      ),
+      appBar: AppBar(title: const Text('Delibery App'), actions: <Widget>[
+        IconButton(
+          icon: const Icon(
+            Icons.shopping_cart,
+            semanticLabel: "Carrito de compras",
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, "/carrito");
+          },
+        )
+      ]),
       body: const Center(
-        child: Text('Home Screen'),
+        child: ProductosListView(),
       ),
     );
   }

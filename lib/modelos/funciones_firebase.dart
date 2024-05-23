@@ -4,8 +4,6 @@ import 'dart:io';
 
 class FuncionesFirebase {
   Future<ImageModel> uploadImage(File image, String type) async {
-    if (image == null) return ImageModel(errorMessage: 'No image selected');
-
     try {
       final storageRef = FirebaseStorage.instance
           .ref()

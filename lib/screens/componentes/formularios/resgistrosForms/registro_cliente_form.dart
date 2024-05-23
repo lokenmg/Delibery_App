@@ -11,7 +11,7 @@ import 'package:delibery_app/modelos/models/image_models.dart';
 import 'package:delibery_app/services/registros_services.dart';
 import 'package:flutter/material.dart';
 
-import '../../componentes/titulos.dart';
+import '../../titulos.dart';
 import '../componentes/dropdounsbuton/date_picker.dart';
 
 class FormRegistrocliente extends StatefulWidget {
@@ -210,6 +210,11 @@ class _FormRegistroclienteState extends State<FormRegistrocliente> {
               ElevatedButton(
                 onPressed: () {
                   FuncionesFirebase firebase = FuncionesFirebase();
+                  if (_urlFoto == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Imagen no seleccionada')));
+                    return;
+                  }
                   firebase.uploadImage(_urlFoto!, "perfil").then(
                     (ImageModel value) {
                       if (value.errorMessage != null) {

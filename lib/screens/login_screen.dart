@@ -1,7 +1,7 @@
 import 'package:delibery_app/logica/validadores/validadores.dart';
 import 'package:flutter/material.dart';
 
-import 'formularios/login_form.dart';
+import 'componentes/formularios/login_form.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});

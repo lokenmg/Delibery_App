@@ -31,6 +31,15 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.add_rounded),
+            title: const Text('Agregar producto'),
+            onTap: () {
+              // Acción para navegar a la pantalla de inicio
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/AddProduct');
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.home),
             title: const Text('Inicio'),
             onTap: () {
