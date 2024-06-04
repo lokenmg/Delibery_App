@@ -104,10 +104,14 @@ class _PagoTarjetaFormState extends State<PagoTarjetaForm> {
         MaterialButton(
           onPressed: () {
             if (_formkey.currentState!.validate()) {
-              print("exito");
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Pago realizado con éxito"),
+                ),
+              );
             }
           },
-          child: Text("pagar"),
+          child: const Text("pagar"),
         )
       ]),
     );

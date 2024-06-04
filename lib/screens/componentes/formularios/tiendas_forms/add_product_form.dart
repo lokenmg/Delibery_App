@@ -38,12 +38,14 @@ class _AddProductFormState extends State<AddProductForm> {
   final validar = Validadores();
   @override
   Widget build(BuildContext context) {
-    TextEditingController _nombreController = TextEditingController();
+    /*TextEditingController _nombreController = TextEditingController();
     TextEditingController _descripcionController = TextEditingController();
     TextEditingController _precioController = TextEditingController();
     TextEditingController _cantidadController = TextEditingController();
     TextEditingController _categoriaController = TextEditingController();
-    TextEditingController _imagenController = TextEditingController();
+    */
+    TextEditingController imagenController = TextEditingController();
+
     return Form(
       child: Column(
         children: [
@@ -127,7 +129,7 @@ class _AddProductFormState extends State<AddProductForm> {
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(value.errorMessage!)));
                       } else {
-                        _imagenController.text = value.url!;
+                        imagenController.text = value.url!;
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                                 content: Text('Imagen subida correctamente')));

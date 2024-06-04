@@ -46,7 +46,7 @@ class _ConfirmarCompraScreenState extends State<ConfirmarCompraScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Column(
               children: [
-                Text("Direccion"),
+                const Text("Direccion"),
                 Text(
                     "${cliente.direccion.calle1} ${cliente.direccion.calle2} ${cliente.direccion.calle3}, N° ${cliente.direccion.numeroExterior}, exterior ${cliente.direccion.numeroInterior}, ${cliente.direccion.municipio}, ${cliente.direccion.colonia}, ${cliente.direccion.estado}"),
                 Row(

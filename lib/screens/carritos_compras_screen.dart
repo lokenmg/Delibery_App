@@ -1,4 +1,3 @@
-import 'package:delibery_app/entidades/modelos/models/carrito.dart';
 import 'package:delibery_app/entidades/modelos/models/providers/carrito_compras_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

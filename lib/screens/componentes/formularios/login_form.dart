@@ -4,7 +4,7 @@ import 'package:delibery_app/services/registros_services.dart';
 import 'package:flutter/material.dart';
 
 class FormularioLogin extends StatefulWidget {
-  FormularioLogin({
+  const FormularioLogin({
     super.key,
     required GlobalKey<FormState> formkey,
     required this.validador,
@@ -24,7 +24,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
 
   @override
   Widget build(BuildContext context) {
-    bool _isPasswordVisible = false;
+    bool isPasswordVisible = false;
     return Container(
       constraints: const BoxConstraints(maxWidth: 300),
       child: Form(
@@ -61,19 +61,19 @@ class _FormularioLoginState extends State<FormularioLogin> {
 
                 return null;
               },
-              obscureText: !_isPasswordVisible,
+              obscureText: !isPasswordVisible,
               decoration: InputDecoration(
                   labelText: 'Contraseña',
                   hintText: 'Escirbe tu contraseña',
                   prefixIcon: const Icon(Icons.lock_outline_rounded),
                   border: const OutlineInputBorder(),
                   suffixIcon: IconButton(
-                    icon: Icon(_isPasswordVisible
+                    icon: Icon(isPasswordVisible
                         ? Icons.visibility_off
                         : Icons.visibility),
                     onPressed: () {
                       setState(() {
-                        _isPasswordVisible = !_isPasswordVisible;
+                        isPasswordVisible = !isPasswordVisible;
                       });
                     },
                   )),
