@@ -1,5 +1,5 @@
-import 'package:delibery_app/modelos/models/carrito.dart';
-import 'package:delibery_app/modelos/models/providers/carrito_compras_provider.dart';
+import 'package:delibery_app/entidades/modelos/models/carrito.dart';
+import 'package:delibery_app/entidades/modelos/models/providers/carrito_compras_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +21,7 @@ class _CarritoComprasScreenState extends State<CarritoComprasScreen> {
         ),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             child: Column(
               children: [
                 Expanded(
@@ -31,7 +31,8 @@ class _CarritoComprasScreenState extends State<CarritoComprasScreen> {
                     final compra = carritoProvider.carrito[index];
 
                     return ListTile(
-                      leading: Image.network(compra.producto!.imagen),
+                      leading:
+                          Image.network(compra.producto!.imagen, width: 100),
                       title: Text(compra.producto!.nombre),
                       subtitle: Row(children: [
                         const Text(
@@ -55,7 +56,11 @@ class _CarritoComprasScreenState extends State<CarritoComprasScreen> {
                 ),
                 Text("\$${carritoProvider.total}"),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (carritoProvider.carrito.isNotEmpty) {
+                        Navigator.pushNamed(context, '/confirmarCompra');
+                      }
+                    },
                     style: const ButtonStyle(
                         shadowColor: MaterialStatePropertyAll(Colors.black12)),
                     child: const Text("Comprar",

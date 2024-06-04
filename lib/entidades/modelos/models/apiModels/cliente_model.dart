@@ -51,8 +51,8 @@ class Direccion {
   final String calle2;
   final String calle3;
   final String referencia;
-  final int numeroExterior;
-  final int numeroInterior;
+  final String numeroExterior;
+  final String numeroInterior;
 
   Direccion({
     required this.cp,

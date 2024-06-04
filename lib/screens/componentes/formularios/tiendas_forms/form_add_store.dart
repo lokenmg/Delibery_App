@@ -1,6 +1,6 @@
 import 'package:delibery_app/logica/validadores/validadores.dart';
-import 'package:delibery_app/modelos/apis/copomex.dart';
-import 'package:delibery_app/modelos/geocidong_model.dart';
+import 'package:delibery_app/entidades/modelos/apis/copomex.dart';
+import 'package:delibery_app/entidades/modelos/geocidong_model.dart';
 import 'package:delibery_app/screens/componentes/titulos.dart';
 import 'package:flutter/material.dart';
 

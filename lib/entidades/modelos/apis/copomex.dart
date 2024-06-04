@@ -1,4 +1,4 @@
-import 'package:delibery_app/modelos/geocidong_model.dart';
+import 'package:delibery_app/entidades/modelos/geocidong_model.dart';
 import 'package:dio/dio.dart';
 
 class PeticionesCopomex {

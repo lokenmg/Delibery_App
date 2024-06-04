@@ -1,4 +1,4 @@
-import 'package:delibery_app/modelos/models/apiModels/categoria_model.dart';
+import 'package:delibery_app/entidades/modelos/models/apiModels/categoria_model.dart';
 
 class CategoriaModelId extends CategoriaModel {
   final int id;

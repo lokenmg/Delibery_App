@@ -1,5 +1,5 @@
-import 'package:delibery_app/modelos/apis/delivery_endpoints.dart';
-import 'package:delibery_app/modelos/models/apiModels/token_model.dart';
+import 'package:delibery_app/entidades/modelos/apis/delivery_endpoints.dart';
+import 'package:delibery_app/entidades/modelos/models/apiModels/token_model.dart';
 import 'package:dio/dio.dart';
 
 class RegistrosServices {
@@ -45,7 +45,7 @@ class RegistrosServices {
       return tokenModel = TokenModel.fromJson(response.data);
     } catch (e) {
       tokenModel = TokenModel(
-          username: "", message: "Error al iniciar sesión", token: "");
+          id: "", username: "", message: "Error al iniciar sesión", token: "");
       return tokenModel;
     }
   }

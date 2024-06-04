@@ -1,4 +1,4 @@
-import 'package:delibery_app/modelos/models/apiModels/tienda_model.dart';
+import 'package:delibery_app/entidades/modelos/models/apiModels/tienda_model.dart';
 
 class TiendaModelId extends TiendaModel {
   final int id;

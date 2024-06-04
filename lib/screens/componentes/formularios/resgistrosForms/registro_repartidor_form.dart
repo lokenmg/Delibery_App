@@ -2,15 +2,15 @@ import 'dart:io';
 
 import 'package:delibery_app/entidades/enums/enum_genero.dart';
 import 'package:delibery_app/logica/validadores/control_imagenes.dart';
-import 'package:delibery_app/modelos/apis/copomex.dart';
-import 'package:delibery_app/modelos/funciones_firebase.dart';
-import 'package:delibery_app/modelos/geocidong_model.dart';
+import 'package:delibery_app/entidades/modelos/apis/copomex.dart';
+import 'package:delibery_app/entidades/modelos/funciones_firebase.dart';
+import 'package:delibery_app/entidades/modelos/geocidong_model.dart';
 import 'package:delibery_app/logica/validadores/validadores.dart';
-import 'package:delibery_app/modelos/models/image_models.dart';
+import 'package:delibery_app/entidades/modelos/models/image_models.dart';
 import 'package:delibery_app/services/registros_services.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../modelos/models/apiModels/repartidor_model.dart';
+import '../../../../entidades/modelos/models/apiModels/repartidor_model.dart';
 import '../../titulos.dart';
 import '../componentes/dropdounsbuton/date_picker.dart';
 

@@ -1,4 +1,4 @@
-import 'package:delibery_app/modelos/models/apiModels/encargado_model.dart';
+import 'package:delibery_app/entidades/modelos/models/apiModels/encargado_model.dart';
 
 class EncargadoModelId extends EncargadoModel {
   final int id;

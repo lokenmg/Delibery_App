@@ -1,4 +1,4 @@
-import 'package:delibery_app/modelos/models/apiModels/producto_model_id.dart';
+import 'package:delibery_app/entidades/modelos/models/apiModels/producto_model_id.dart';
 
 class ProductosDatos {
   List<ProductoModelId> productos() {

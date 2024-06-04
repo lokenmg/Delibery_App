@@ -1,4 +1,4 @@
-import 'package:delibery_app/modelos/models/image_models.dart';
+import 'package:delibery_app/entidades/modelos/models/image_models.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 

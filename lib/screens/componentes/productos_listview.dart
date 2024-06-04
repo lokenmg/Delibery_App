@@ -1,5 +1,5 @@
-import 'package:delibery_app/modelos/models/apiModels/producto_model_id.dart';
-import 'package:delibery_app/modelos/models/datosPrueba/productos_datos.dart';
+import 'package:delibery_app/entidades/modelos/models/apiModels/producto_model_id.dart';
+import 'package:delibery_app/entidades/modelos/models/datosPrueba/productos_datos.dart';
 import 'package:flutter/material.dart';
 
 class ProductosListView extends StatefulWidget {
@@ -17,12 +17,14 @@ class _ProductosListViewState extends State<ProductosListView> {
     return ListView(
       children: productos.map((producto) {
         return ListTile(
+          tileColor: Colors.grey[200],
           leading: Image.network(
             producto.imagen,
+            width: 100,
           ),
           title: Text(producto.nombre),
           subtitle: Text(producto.descripcion),
-          trailing: Text(producto.precio.toString()),
+          trailing: Text("\$${producto.precio.toString()}"),
           onTap: () {
             Navigator.pushNamed(context, '/producto', arguments: producto);
           },

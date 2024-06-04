@@ -1,6 +1,6 @@
-import 'package:delibery_app/modelos/models/apiModels/producto_model_id.dart';
-import 'package:delibery_app/modelos/models/carrito.dart';
-import 'package:delibery_app/modelos/models/providers/carrito_compras_provider.dart';
+import 'package:delibery_app/entidades/modelos/models/apiModels/producto_model_id.dart';
+import 'package:delibery_app/entidades/modelos/models/carrito.dart';
+import 'package:delibery_app/entidades/modelos/models/providers/carrito_compras_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -102,7 +102,6 @@ class _ProductoScreenState extends State<ProductoScreen> {
                           subtotal: contador == 0 ? argument.precio : total));
                 },
                 child: const Text('Agregar al carrito')),
-            ElevatedButton(onPressed: () {}, child: const Text("comprar ahora"))
           ]),
         ));
   }

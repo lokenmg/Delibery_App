@@ -1,4 +1,6 @@
-import 'package:delibery_app/modelos/models/providers/carrito_compras_provider.dart';
+import 'package:delibery_app/config/theme/app_theme.dart';
+import 'package:delibery_app/entidades/modelos/models/providers/carrito_compras_provider.dart';
+import 'package:delibery_app/screens/confirmar_compra_screen.dart';
 import 'package:delibery_app/screens/index.dart';
 import 'package:delibery_app/screens/metodo_pago.dart';
 
@@ -27,6 +29,7 @@ class MyApp extends StatelessWidget {
     "/AddProduct": (context) => const AddProductScreen(),
     "/producto": (context) => const ProductoScreen(),
     "/carrito": (context) => const CarritoComprasScreen(),
+    "/confirmarCompra": (context) => const ConfirmarCompraScreen(),
     "/metodoPago": (context) => const MetodoPago(),
   };
   MyApp({super.key});
@@ -38,6 +41,7 @@ class MyApp extends StatelessWidget {
       title: 'DEMIX',
       initialRoute: "/login",
       routes: _routes,
+      theme: AppTheme(selectedTheme: 0).theme(),
     );
   }
 }

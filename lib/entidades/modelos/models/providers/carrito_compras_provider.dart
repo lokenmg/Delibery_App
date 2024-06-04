@@ -1,4 +1,4 @@
-import 'package:delibery_app/modelos/models/carrito.dart';
+import 'package:delibery_app/entidades/modelos/models/carrito.dart';
 import 'package:flutter/material.dart';
 
 class CarritoComprasProvider extends ChangeNotifier {

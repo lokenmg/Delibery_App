@@ -1,4 +1,4 @@
-import 'package:delibery_app/modelos/apis/delivery_endpoints.dart';
+import 'package:delibery_app/entidades/modelos/apis/delivery_endpoints.dart';
 import 'package:dio/dio.dart';
 
 class FuncionesTienda {

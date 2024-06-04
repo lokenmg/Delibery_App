@@ -1,3 +1,9 @@
+import 'dart:io';
+
+import 'package:delibery_app/entidades/modelos/funciones_firebase.dart';
+import 'package:delibery_app/entidades/modelos/models/image_models.dart';
+import 'package:delibery_app/logica/validadores/control_imagenes.dart';
+import 'package:delibery_app/logica/validadores/validadores.dart';
 import 'package:flutter/material.dart';
 
 class CategoriaModel {
@@ -26,42 +32,115 @@ class _AddProductFormState extends State<AddProductForm> {
     CategoriaModel(descripcion: 'Historia'),
     CategoriaModel(descripcion: 'Literatura'),
   ];
+  File? _urlFoto;
+  bool urlFotoCheck = false;
 
+  final validar = Validadores();
   @override
   Widget build(BuildContext context) {
+    TextEditingController _nombreController = TextEditingController();
+    TextEditingController _descripcionController = TextEditingController();
+    TextEditingController _precioController = TextEditingController();
+    TextEditingController _cantidadController = TextEditingController();
+    TextEditingController _categoriaController = TextEditingController();
+    TextEditingController _imagenController = TextEditingController();
     return Form(
       child: Column(
         children: [
+          _gap(),
           TextFormField(
-            decoration: const InputDecoration(
-              labelText: 'Nombre del producto',
-            ),
+            decoration: disenioTextFormnField("Nombre del producto", "Nombre"),
+            validator: (value) {
+              return validar.validarCampoVacio(value);
+            },
           ),
+          _gap(),
           TextFormField(
-            decoration: const InputDecoration(
-              labelText: 'Descripción del producto',
-            ),
+            decoration: disenioTextFormnField(
+                "Descripción del producto", "Escibe una descripción"),
+            validator: (value) => validar.validarCampoVacio(value),
           ),
+          _gap(),
           TextFormField(
-            decoration: const InputDecoration(
-              labelText: 'Precio del producto',
-            ),
+            decoration: disenioTextFormnField("Precio del producto", "Precio"),
           ),
+          _gap(),
           TextFormField(
-            decoration: const InputDecoration(
-              labelText: 'Cantidad del producto',
-            ),
+            decoration:
+                disenioTextFormnField("Cantidad disponible", "Cantidad"),
           ),
-          TextFormField(
-            decoration: const InputDecoration(
-              labelText: 'Imagen del producto',
-            ),
-          ),
+          _gap(),
           ElevatedButton(
             onPressed: () {
               _showCategoriasDialog(context);
             },
             child: const Text('Seleccionar Categorías'),
+          ),
+          _gap(),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _urlFoto == null
+                  ? Container(
+                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                      height: 100,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black)),
+                      child: const Text('Imagen no seleccionada.'))
+                  : Image.file(
+                      _urlFoto!,
+                      height: 100,
+                    ),
+              const SizedBox(width: 60),
+              urlFotoCheck
+                  ? const Icon(Icons.check_circle,
+                      color: Colors.green, size: 50)
+                  : const Icon(
+                      Icons.check_circle,
+                      color: Colors.grey,
+                      size: 50,
+                    )
+            ],
+          ),
+          _gap(),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  ControlImagenes controlImagenes = ControlImagenes();
+                  controlImagenes.seleccionarImagen().then((File? value) {
+                    setState(() {
+                      _urlFoto = value;
+                    });
+                  });
+                },
+                child: const Text('seleccionar imagen'),
+              ),
+              const Padding(padding: EdgeInsets.all(10)),
+              ElevatedButton(
+                onPressed: () {
+                  FuncionesFirebase firebase = FuncionesFirebase();
+                  firebase.uploadImage(_urlFoto!, "producto").then(
+                    (ImageModel value) {
+                      if (value.errorMessage != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(value.errorMessage!)));
+                      } else {
+                        _imagenController.text = value.url!;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Imagen subida correctamente')));
+                        setState(() {
+                          urlFotoCheck = true;
+                        });
+                      }
+                    },
+                  );
+                },
+                child: const Text('Subir imagen'),
+              ),
+            ],
           ),
           ElevatedButton(
             onPressed: () {
@@ -149,4 +228,14 @@ class _AddProductFormState extends State<AddProductForm> {
       },
     );
   }
+
+  InputDecoration disenioTextFormnField(String nLabelText, String nHintText) {
+    return InputDecoration(
+      labelText: nLabelText,
+      hintText: nHintText,
+      border: const OutlineInputBorder(),
+    );
+  }
+
+  Widget _gap() => const SizedBox(height: 16);
 }
