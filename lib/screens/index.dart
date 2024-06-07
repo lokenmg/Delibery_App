@@ -6,3 +6,6 @@ export 'package:delibery_app/screens/home_screen.dart';
 export 'package:delibery_app/screens/add_product_screen.dart';
 export 'package:delibery_app/screens/producto_screen.dart';
 export 'package:delibery_app/screens/carritos_compras_screen.dart';
+export 'package:delibery_app/screens/confirmar_compra_screen.dart';
+export 'package:delibery_app/screens/metodo_pago.dart';
+export 'package:delibery_app/screens/tienda_screen.dart';

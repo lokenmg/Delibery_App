@@ -1,11 +1,11 @@
 class ProductoModel {
   final String nombre;
   final String descripcion;
-  final int precio;
+  final double precio;
   final String imagen;
   final List<int> categoriasId;
   final int idTienda;
-  final int descuento;
+  final double descuento;
   final int stock;
 
   ProductoModel({

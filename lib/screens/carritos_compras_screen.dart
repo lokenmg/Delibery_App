@@ -29,42 +29,66 @@ class _CarritoComprasScreenState extends State<CarritoComprasScreen> {
                   itemBuilder: (context, index) {
                     final compra = carritoProvider.carrito[index];
 
-                    return ListTile(
-                      leading:
-                          Image.network(compra.producto!.imagen, width: 100),
-                      title: Text(compra.producto!.nombre),
-                      subtitle: Row(children: [
-                        const Text(
-                          "Cantidad: ",
+                    return Card(
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(compra.producto!.imagen),
+                          radius: 30,
                         ),
-                        Text(compra.cantidad.toString()),
-                        const Padding(padding: EdgeInsets.only(left: 20)),
-                        IconButton(
-                            onPressed: () {
-                              carritoProvider.eliminarCarritoPorIndex(index);
-                            },
-                            icon: const Icon(Icons.delete))
-                      ]),
-                      trailing: Text("\$${compra.subtotal}"),
+                        title: Text(
+                          compra.producto!.nombre,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Row(children: [
+                          const Text(
+                            "Cantidad: ",
+                          ),
+                          Text(compra.cantidad.toString()),
+                          const Padding(padding: EdgeInsets.only(left: 20)),
+                          IconButton(
+                              onPressed: () {
+                                carritoProvider.eliminarCarritoPorIndex(index);
+                              },
+                              icon: const Icon(Icons.delete, color: Colors.red))
+                        ]),
+                        trailing: Text("\$${compra.subtotal}",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
+                      ),
                     );
                   },
                 )),
+                const SizedBox(height: 20),
                 const Text(
-                  "total",
+                  "Total",
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
-                Text("\$${carritoProvider.total}"),
+                Text("\$${carritoProvider.total}",
+                    style:
+                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 20),
                 ElevatedButton(
                     onPressed: () {
                       if (carritoProvider.carrito.isNotEmpty) {
                         Navigator.pushNamed(context, '/confirmarCompra');
                       }
                     },
-                    style: const ButtonStyle(
-                        shadowColor: MaterialStatePropertyAll(Colors.black12)),
-                    child: const Text("Comprar",
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold)))
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.green,
+                      onPrimary: Colors.white,
+                      shadowColor: Colors.black12,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32.0),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: const Text("Comprar",
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold)),
+                    ))
               ],
             ),
           ),

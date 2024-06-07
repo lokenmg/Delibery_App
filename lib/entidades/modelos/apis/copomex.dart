@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 
 class PeticionesCopomex {
   final String _urlBase = 'https://api.copomex.com/query/';
-  final String _token = "73f3ef9b-242c-4f8b-a662-4587e8bc9ff8";
+  final String _token = "ea95615f-7982-472a-8525-f5f19b8d8713";
 
   final dio = Dio();
   Future<Geocoding> getCpGeoEncoding(String codigoPostal) async {

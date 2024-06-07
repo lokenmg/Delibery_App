@@ -29,4 +29,15 @@ class Validadores {
     }
     return null;
   }
+
+  String? validarDecimales(value) {
+    if (value.isEmpty) return null;
+    final n = num.tryParse(value);
+    if (n == null) {
+      return '"$value" no es un número válido';
+    }
+    return null;
+  }
+
+  //String? validar
 }

@@ -1,7 +1,9 @@
+import 'package:delibery_app/entidades/modelos/models/apiModels/tienda_model.dart';
 import 'package:delibery_app/logica/validadores/validadores.dart';
 import 'package:delibery_app/entidades/modelos/apis/copomex.dart';
 import 'package:delibery_app/entidades/modelos/geocidong_model.dart';
 import 'package:delibery_app/screens/componentes/titulos.dart';
+import 'package:delibery_app/services/delivery_service.dart';
 import 'package:flutter/material.dart';
 
 class FormAddStore extends StatefulWidget {
@@ -243,10 +245,7 @@ class _FormAddStoreState extends State<FormAddStore> {
           Center(
             child: ElevatedButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Registro exitoso')));
-                Navigator.pushNamed(context, "/AddProduct");
-                /*if (_formkey.currentState!.validate()) {
+                if (_formkey.currentState!.validate()) {
                   TiendaModel nuevaTienda = TiendaModel(
                       calificacion: 5,
                       descripcion: descripccionController.text,
@@ -265,9 +264,12 @@ class _FormAddStoreState extends State<FormAddStore> {
                       horarios: horarioController.text,
                       nombre: nombreController.text,
                       telefono: telefonoController.text);
-                  nuevaTienda.toJson();
-                  
-                }*/
+                  DeliveryService().postStore(nuevaTienda).then((value) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Registro exitoso')));
+                    Navigator.pushNamed(context, "/AddProduct");
+                  });
+                }
               },
               child: const Text("Registrar"),
             ),

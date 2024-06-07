@@ -1,5 +1,5 @@
 class TiendaModel {
-  final int calificacion;
+  final double calificacion;
   final String descripcion;
   final Direccion direccion;
   final String email;

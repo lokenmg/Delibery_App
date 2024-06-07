@@ -3,7 +3,7 @@ import 'package:delibery_app/entidades/modelos/models/apiModels/producto_model_i
 class CarritoModel {
   ProductoModelId? producto;
   int cantidad = 0;
-  int subtotal = 0;
+  double subtotal = 0;
 
   CarritoModel(
       {required this.producto, required this.cantidad, required this.subtotal});

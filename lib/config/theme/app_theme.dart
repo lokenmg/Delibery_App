@@ -15,6 +15,7 @@ class AppTheme {
             "selectedTheme must be a value between 0 and ${_colorsTheme.length - 1}");
 
   ThemeData theme() {
-    return ThemeData(useMaterial3: true, colorSchemeSeed: _colorsTheme[1]);
+    return ThemeData(
+        useMaterial3: true, colorSchemeSeed: _colorsTheme[selectedTheme]);
   }
 }

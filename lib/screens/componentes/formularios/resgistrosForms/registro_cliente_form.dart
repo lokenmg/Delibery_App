@@ -353,7 +353,7 @@ class _FormRegistroclienteState extends State<FormRegistrocliente> {
             TextFormField(
               controller: numeroInteriorController,
               decoration:
-                  disenioTextFormnField("Número exterior", "Número exterior"),
+                  disenioTextFormnField("Número Interior", "Número interior"),
               validator: (value) {
                 if (validar.validarCampoVacio(value) != null) {
                   return validar.validarCampoVacio(value);
@@ -365,13 +365,7 @@ class _FormRegistroclienteState extends State<FormRegistrocliente> {
             TextFormField(
               controller: numeroExteriorController,
               decoration: disenioTextFormnField(
-                  "Número interior (opcional)", "Número interior"),
-              validator: (value) {
-                if (validar.validarCampoVacio(value) != null) {
-                  return validar.validarCampoVacio(value);
-                }
-                return null;
-              },
+                  "Número exterior (opcional)", "Número exterior"),
             ),
             _gap(),
             TextFormField(
@@ -385,9 +379,12 @@ class _FormRegistroclienteState extends State<FormRegistrocliente> {
               child: ElevatedButton(
                 onPressed: () {
                   if (_formkey.currentState!.validate()) {
+                    List<String> fechaSeparada =
+                        fechaNacimientoController.text.split("-");
                     ClienteModel cliente = ClienteModel(
                       nombre: nombreController.text,
-                      fechaNacimiento: fechaNacimientoController.text,
+                      fechaNacimiento:
+                          "${fechaSeparada[2]}/${fechaSeparada[1]}/${fechaSeparada[0]}",
                       email: emailController.text,
                       telefono: telefonoController.text,
                       urlFoto: urlFotoController.text,
@@ -407,10 +404,13 @@ class _FormRegistroclienteState extends State<FormRegistrocliente> {
                       password: passwordController.text,
                     );
 
-                    RegistrosServices().registrarCliente(cliente.toJson()).then(
-                        (value) => ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Registro exitoso'))));
-                    Navigator.pushNamed(context, "/login");
+                    RegistrosServices()
+                        .registrarCliente(cliente.toJson())
+                        .then((value) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Registro exitoso')));
+                    });
+                    //Navigator.pushNamed(context, "/login");
                   }
                 },
                 child: const Text('Registrar'),

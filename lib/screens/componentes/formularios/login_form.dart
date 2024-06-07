@@ -1,7 +1,10 @@
+import 'package:delibery_app/entidades/modelos/models/providers/info_login_provider.dart';
 import 'package:delibery_app/logica/validadores/validadores.dart';
 import 'package:delibery_app/entidades/modelos/models/apiModels/login_model.dart';
 import 'package:delibery_app/services/registros_services.dart';
+import 'package:delibery_app/services/token_services.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FormularioLogin extends StatefulWidget {
   const FormularioLogin({
@@ -21,10 +24,11 @@ class _FormularioLoginState extends State<FormularioLogin> {
   final TextEditingController correoController = TextEditingController();
 
   final TextEditingController contraseniaController = TextEditingController();
+  bool _vercontrasenia = true;
 
   @override
   Widget build(BuildContext context) {
-    bool isPasswordVisible = false;
+    //bool isPasswordVisible = false;
     return Container(
       constraints: const BoxConstraints(maxWidth: 300),
       child: Form(
@@ -61,22 +65,23 @@ class _FormularioLoginState extends State<FormularioLogin> {
 
                 return null;
               },
-              obscureText: !isPasswordVisible,
+              obscureText: _vercontrasenia,
               decoration: InputDecoration(
                   labelText: 'Contraseña',
                   hintText: 'Escirbe tu contraseña',
                   prefixIcon: const Icon(Icons.lock_outline_rounded),
                   border: const OutlineInputBorder(),
                   suffixIcon: IconButton(
-                    icon: Icon(isPasswordVisible
-                        ? Icons.visibility_off
-                        : Icons.visibility),
-                    onPressed: () {
-                      setState(() {
-                        isPasswordVisible = !isPasswordVisible;
-                      });
-                    },
-                  )),
+                      onPressed: () {
+                        setState(() {
+                          if (_vercontrasenia == true) {
+                            _vercontrasenia = false;
+                          } else {
+                            _vercontrasenia = true;
+                          }
+                        });
+                      },
+                      icon: const Icon(Icons.remove_red_eye))),
             ),
             _gap(),
             SizedBox(
@@ -90,8 +95,13 @@ class _FormularioLoginState extends State<FormularioLogin> {
                           password: contraseniaController.text);
 
                       RegistrosServices().login(loginModel.toJson()).then(
-                        (value) {
+                        (value) async {
                           if (value.token.isNotEmpty) {
+                            await TokenServices.setToken(value.token);
+                            await TokenServices.setUsuario(int.parse(value.id));
+                            Provider.of<InfoLoginProvider>(context,
+                                    listen: false)
+                                .tokenModel = value;
                             Navigator.pushReplacementNamed(context, '/home');
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(

@@ -12,10 +12,12 @@ class ProductoScreen extends StatefulWidget {
 }
 
 class _ProductoScreenState extends State<ProductoScreen> {
-  int total = 0;
+  double total = 0;
   int contador = 0;
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     final ProductoModelId argument =
         ModalRoute.of(context)?.settings.arguments as ProductoModelId;
     return Scaffold(
@@ -24,59 +26,65 @@ class _ProductoScreenState extends State<ProductoScreen> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Image.network(
-              argument.imagen,
-              height: 200,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(height: 20),
-            Text(
-              argument.nombre,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              argument.descripcion,
-              style: const TextStyle(fontSize: 16),
-            ),
-            Text(
-              'Precio ${argument.precio.toString()}',
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            argument.descuento > 0
-                ? Text(
-                    'Descuento \$${argument.descuento}',
-                    style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red),
-                  )
-                : const SizedBox(),
-            const SizedBox(height: 8),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(5),
+          child: ListView(
+            children: [
+              Image.network(
+                argument.imagen,
+                height: 200,
+                width: double.infinity,
+                fit: BoxFit.cover,
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              const SizedBox(height: 20),
+              Text(
+                argument.nombre,
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              argument.categoriasId.isNotEmpty
+                  ? Text(
+                      'Categorías: ${argument.categoriasId.join(', ')}',
+                      style: const TextStyle(fontSize: 16),
+                    )
+                  : const SizedBox(),
+              const SizedBox(height: 8),
+              Text(
+                argument.descripcion,
+                style: const TextStyle(fontSize: 16),
+              ),
+              Text(
+                'Precio ${argument.precio.toString()}',
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              argument.descuento > 0
+                  ? Text(
+                      'Descuento \$${argument.descuento}',
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red),
+                    )
+                  : const SizedBox(),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   IconButton(
                     onPressed: () {
                       setState(() {
                         (contador < 1) ? null : contador--;
                         (argument.descuento != 0)
-                            ? total = (contador *
-                                argument.precio /** (argument.descuento/100)*/)
+                            ? total = (contador * (argument.descuento / 100))
                             : total = (contador * argument.precio);
                       });
                     },
                     icon: const Icon(Icons.remove),
+                    color: Colors.red,
                   ),
-                  Text(contador.toString()),
+                  Text(
+                    contador.toString(),
+                    style: TextStyle(fontSize: 18),
+                  ),
                   IconButton(
                     onPressed: () {
                       setState(() {
@@ -88,21 +96,36 @@ class _ProductoScreenState extends State<ProductoScreen> {
                       });
                     },
                     icon: const Icon(Icons.add),
+                    color: Colors.green,
                   ),
-                  Text("Total: \$$total")
+                  Text(
+                    "Total: \$$total",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  Provider.of<CarritoComprasProvider>(context, listen: false)
-                      .agregarCarrito(CarritoModel(
-                          cantidad: contador == 0 ? 1 : contador,
-                          producto: argument,
-                          subtotal: contador == 0 ? argument.precio : total));
-                },
-                child: const Text('Agregar al carrito')),
-          ]),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                    onPrimary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32.0),
+                    ),
+                  ),
+                  onPressed: () {
+                    Provider.of<CarritoComprasProvider>(context, listen: false)
+                        .agregarCarrito(CarritoModel(
+                            cantidad: contador == 0 ? 1 : contador,
+                            producto: argument,
+                            subtotal: contador == 0 ? argument.precio : total));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: const Text('Agregar al carrito'),
+                  )),
+            ],
+          ),
         ));
   }
 }

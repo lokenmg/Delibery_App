@@ -5,7 +5,7 @@ class TiendaModelId extends TiendaModel {
 
   TiendaModelId({
     required this.id,
-    required int calificacion,
+    required double calificacion,
     required String descripcion,
     required Direccion direccion,
     required String email,
@@ -24,7 +24,7 @@ class TiendaModelId extends TiendaModel {
 
   factory TiendaModelId.fromJson(Map<String, dynamic> json) {
     return TiendaModelId(
-      id: json["id"],
+      id: json["idTienda"],
       calificacion: json["calificacion"],
       descripcion: json["descripcion"],
       direccion: Direccion.fromJson(json["direccion"]),
@@ -37,7 +37,7 @@ class TiendaModelId extends TiendaModel {
 
   @override
   Map<String, dynamic> toJson() => {
-        "id": id,
+        "idTienda": id,
         "calificacion": calificacion,
         "descripcion": descripcion,
         "direccion": direccion.toJson(),

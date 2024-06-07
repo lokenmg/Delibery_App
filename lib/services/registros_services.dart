@@ -21,6 +21,7 @@ class RegistrosServices {
     try {
       final response =
           await _dio.post(DeliveryEndpoints.registrarCliente(), data: data);
+      print(response.data);
       return response.data;
     } catch (e) {
       return {"status": 500, "message": "Error al registrar cliente"};
@@ -45,7 +46,11 @@ class RegistrosServices {
       return tokenModel = TokenModel.fromJson(response.data);
     } catch (e) {
       tokenModel = TokenModel(
-          id: "", username: "", message: "Error al iniciar sesión", token: "");
+          id: "",
+          username: "",
+          message: "Error al iniciar sesión",
+          token: "",
+          type: "");
       return tokenModel;
     }
   }

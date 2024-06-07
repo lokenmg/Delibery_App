@@ -1,8 +1,7 @@
 import 'package:delibery_app/config/theme/app_theme.dart';
 import 'package:delibery_app/entidades/modelos/models/providers/carrito_compras_provider.dart';
-import 'package:delibery_app/screens/confirmar_compra_screen.dart';
+import 'package:delibery_app/entidades/modelos/models/providers/info_login_provider.dart';
 import 'package:delibery_app/screens/index.dart';
-import 'package:delibery_app/screens/metodo_pago.dart';
 
 import 'package:flutter/material.dart';
 
@@ -16,8 +15,10 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(ChangeNotifierProvider(
-      create: (context) => CarritoComprasProvider(), child: MyApp()));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => CarritoComprasProvider()),
+    ChangeNotifierProvider(create: (context) => InfoLoginProvider()),
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
     "/carrito": (context) => const CarritoComprasScreen(),
     "/confirmarCompra": (context) => const ConfirmarCompraScreen(),
     "/metodoPago": (context) => const MetodoPago(),
+    "/tienda": (context) => const TiendaScreen(),
   };
   MyApp({super.key});
 
@@ -41,7 +43,7 @@ class MyApp extends StatelessWidget {
       title: 'DEMIX',
       initialRoute: "/login",
       routes: _routes,
-      theme: AppTheme(selectedTheme: 0).theme(),
+      theme: AppTheme(selectedTheme: 2).theme(),
     );
   }
 }

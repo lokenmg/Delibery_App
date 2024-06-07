@@ -1,22 +1,20 @@
-import 'package:delibery_app/entidades/modelos/models/apiModels/categoria_model.dart';
+class CategoriaModelId {
+  final int idCategoria;
+  final String descripcion;
 
-class CategoriaModelId extends CategoriaModel {
-  final int id;
+  CategoriaModelId({required this.idCategoria, required this.descripcion});
 
-  CategoriaModelId({
-    required this.id,
-    required String descripcion,
-  }) : super(descripcion: descripcion);
+  factory CategoriaModelId.fromJson(Map<String, dynamic> json) {
+    return CategoriaModelId(
+      idCategoria: json['idCategoria'],
+      descripcion: json['descripcion'],
+    );
+  }
 
-  factory CategoriaModelId.fromJson(Map<String, dynamic> json) =>
-      CategoriaModelId(
-        id: json["id"],
-        descripcion: json["descripcion"],
-      );
-
-  @override
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "descripcion": descripcion,
-      };
+  Map<String, dynamic> toJson() {
+    return {
+      'idCategoria': idCategoria,
+      'descripcion': descripcion,
+    };
+  }
 }

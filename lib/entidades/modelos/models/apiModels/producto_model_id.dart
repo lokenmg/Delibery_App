@@ -7,11 +7,11 @@ class ProductoModelId extends ProductoModel {
     required this.id,
     required List<int> categoriasId,
     required String descripcion,
-    required int descuento,
+    required double descuento,
     required int idTienda,
     required String imagen,
     required String nombre,
-    required int precio,
+    required double precio,
     required int stock,
   }) : super(
           categoriasId: categoriasId,
@@ -26,22 +26,24 @@ class ProductoModelId extends ProductoModel {
 
   factory ProductoModelId.fromJson(Map<String, dynamic> json) {
     return ProductoModelId(
-      id: json["id"],
-      categoriasId: List<int>.from(json["categoriasId"].map((x) => x)),
-      descripcion: json["descripcion"],
-      descuento: json["descuento"],
-      idTienda: json["idTienda"],
-      imagen: json["imagen"],
-      nombre: json["nombre"],
-      precio: json["precio"],
-      stock: json["stock"],
+      id: json["idProducto"] ?? 0,
+      categoriasId: (json["categorias"] as List<dynamic>)
+          .map((categoria) => categoria["idCategoria"] as int)
+          .toList(),
+      descripcion: json["descripcion"] ?? '',
+      descuento: json["descuento"] ?? 0,
+      idTienda: json["idTienda"] ?? 0,
+      imagen: json["imagen"] ?? '',
+      nombre: json["nombre"] ?? '',
+      precio: json["precio"] ?? 0,
+      stock: json["stock"] ?? 0,
     );
   }
 
   @override
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "categoriasId": List<dynamic>.from(categoriasId.map((x) => x)),
+        "idProducto": id,
+        "categorias": categoriasId.map((x) => {"idCategoria": x}).toList(),
         "descripcion": descripcion,
         "descuento": descuento,
         "idTienda": idTienda,
