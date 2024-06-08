@@ -1,21 +1,20 @@
+import 'package:delibery_app/screens/cliente_screen/componentes/cliente_drawer.dart';
 import 'package:delibery_app/screens/componentes/productos_listview.dart';
 import 'package:delibery_app/services/token_services.dart';
 import 'package:flutter/material.dart';
 
-import 'componentes/drawer.dart';
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class ClientHomeScreen extends StatefulWidget {
+  const ClientHomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<ClientHomeScreen> createState() => _ClientHomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _ClientHomeScreenState extends State<ClientHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const MyDrawer(),
+      drawer: const DrawerCliente(),
       appBar: AppBar(title: const Text('Delibery App'), actions: <Widget>[
         IconButton(
           icon: const Icon(
@@ -24,16 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           onPressed: () {
             Navigator.pushNamed(context, "/carrito");
-          },
-        ),
-        IconButton(
-          icon: const Icon(
-            Icons.logout,
-            semanticLabel: "Cerrar sesión",
-          ),
-          onPressed: () async {
-            await TokenServices.removeToken();
-            Navigator.pushNamed(context, "/login");
           },
         ),
       ]),

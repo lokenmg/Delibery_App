@@ -2,14 +2,14 @@ import 'package:delibery_app/entidades/modelos/models/apiModels/info_basica_mode
 import 'package:delibery_app/services/delivery_service.dart';
 import 'package:flutter/material.dart';
 
-class MyDrawer extends StatefulWidget {
-  const MyDrawer({super.key});
+class DrawerEncargado extends StatefulWidget {
+  const DrawerEncargado({super.key});
 
   @override
-  State<MyDrawer> createState() => _MyDrawerState();
+  State<DrawerEncargado> createState() => _DrawerEncargadoState();
 }
 
-class _MyDrawerState extends State<MyDrawer> {
+class _DrawerEncargadoState extends State<DrawerEncargado> {
   InfoBasicaModel? infoBasicaModel;
   bool isLoading = true;
   String? errorMessage;
@@ -46,10 +46,10 @@ class _MyDrawerState extends State<MyDrawer> {
         children: <Widget>[
           UserAccountsDrawerHeader(
             accountName: isLoading
-                ? Text('cargando...')
+                ? const Text('cargando...')
                 : Text(infoBasicaModel?.nombre ?? 'Nombre no disponible'),
             accountEmail: isLoading
-                ? Text('cargando...')
+                ? const Text('cargando...')
                 : Text(infoBasicaModel?.email ?? 'Email no disponible'),
             currentAccountPicture: CircleAvatar(
               backgroundImage: NetworkImage(
@@ -62,7 +62,7 @@ class _MyDrawerState extends State<MyDrawer> {
             ListTile(
               title: Text(
                 errorMessage!,
-                style: TextStyle(color: Colors.red),
+                style: const TextStyle(color: Colors.red),
               ),
             ),
           ],
@@ -102,9 +102,7 @@ class _MyDrawerState extends State<MyDrawer> {
             leading: const Icon(Icons.account_circle),
             title: const Text('Perfil'),
             onTap: () {
-              DeliveryService().getEncargadoInfo().then((value) {
-                print(value);
-              });
+              //agregar vista de perfil
             },
           ),
           ListTile(

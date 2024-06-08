@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
   final _routes = {
     "/login": (context) => const Login(),
     "/registro": (context) => const Registro(),
-    "/home": (context) => const HomeScreen(),
+    "/homeclient": (context) => const ClientHomeScreen(),
+    "/homeencargado": (context) => const ClientHomeScreen(),
     "/AddStore": (context) => const AddStore(),
     "/AddProduct": (context) => const AddProductScreen(),
     "/producto": (context) => const ProductoScreen(),

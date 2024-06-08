@@ -58,7 +58,7 @@ class _ProductoScreenState extends State<ProductoScreen> {
               ),
               argument.descuento > 0
                   ? Text(
-                      'Descuento \$${argument.descuento}',
+                      'Descuento ${argument.descuento}%',
                       style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -74,7 +74,10 @@ class _ProductoScreenState extends State<ProductoScreen> {
                       setState(() {
                         (contador < 1) ? null : contador--;
                         (argument.descuento != 0)
-                            ? total = (contador * (argument.descuento / 100))
+                            ? total = (contador *
+                                (argument.precio -
+                                    ((argument.precio * argument.descuento) /
+                                        100)))
                             : total = (contador * argument.precio);
                       });
                     },
@@ -89,10 +92,10 @@ class _ProductoScreenState extends State<ProductoScreen> {
                     onPressed: () {
                       setState(() {
                         contador++;
-                        (argument.descuento != 0)
-                            ? total = (contador *
-                                argument.precio /** (argument.descuento/100)*/)
-                            : total = (contador * argument.precio);
+                        total = (contador *
+                            (argument.precio -
+                                ((argument.precio * argument.descuento) /
+                                    100)));
                       });
                     },
                     icon: const Icon(Icons.add),

@@ -1,21 +1,21 @@
-import 'package:delibery_app/screens/componentes/formularios/tiendas_forms/add_product_form.dart';
-import 'package:delibery_app/screens/index.dart';
+import 'package:delibery_app/screens/encarcado_screens/encargado_componentes/drawer_encargado.dart';
+import 'package:delibery_app/screens/componentes/formularios/tiendas_forms/form_add_store.dart';
 import 'package:flutter/material.dart';
 
-class AddProductScreen extends StatefulWidget {
-  const AddProductScreen({super.key});
+class AddStore extends StatefulWidget {
+  const AddStore({super.key});
 
   @override
-  State<AddProductScreen> createState() => _AddProductScreenState();
+  State<AddStore> createState() => _AddStoreState();
 }
 
-class _AddProductScreenState extends State<AddProductScreen> {
+class _AddStoreState extends State<AddStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const MyDrawer(),
+      drawer: const DrawerEncargado(),
       appBar: AppBar(
-        title: const Text('Agregar producto'),
+        title: const Text('Agregar tienda'),
       ),
       body: Container(
         padding: const EdgeInsets.all(25),
@@ -25,11 +25,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
             Title(
               color: Colors.black,
               child: const Text(
-                "Agregar producto",
+                "Agregar tienda",
                 style: TextStyle(fontSize: 25),
               ),
             ),
-            const AddProductForm(),
+            const FormAddStore(),
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:delibery_app/entidades/modelos/models/apiModels/token_model.dart';
 import 'package:delibery_app/entidades/modelos/models/providers/info_login_provider.dart';
 import 'package:delibery_app/logica/validadores/validadores.dart';
 import 'package:delibery_app/entidades/modelos/models/apiModels/login_model.dart';
@@ -99,10 +100,8 @@ class _FormularioLoginState extends State<FormularioLogin> {
                           if (value.token.isNotEmpty) {
                             await TokenServices.setToken(value.token);
                             await TokenServices.setUsuario(int.parse(value.id));
-                            Provider.of<InfoLoginProvider>(context,
-                                    listen: false)
-                                .tokenModel = value;
-                            Navigator.pushReplacementNamed(context, '/home');
+                            guardarUsuarioLogeado(value);
+                            navigaitor(value.type);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -119,6 +118,21 @@ class _FormularioLoginState extends State<FormularioLogin> {
         ),
       ),
     );
+  }
+
+  //guardar a un usuario logeadoen InfoLoginProvider
+  void guardarUsuarioLogeado(TokenModel value) {
+    Provider.of<InfoLoginProvider>(context, listen: false).tokenModel = value;
+  }
+
+  void navigaitor(String type) {
+    if (type == "Cliente") {
+      Navigator.pushReplacementNamed(context, '/homeclient');
+    } else if (type == "Encargado") {
+      Navigator.pushReplacementNamed(context, '/homeencargado');
+    } else if (type == "Repartidor") {
+      Navigator.pushReplacementNamed(context, '/homerepartidor');
+    }
   }
 
   Widget _gap() => const SizedBox(height: 16);

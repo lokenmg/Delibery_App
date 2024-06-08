@@ -2,6 +2,7 @@ import 'package:delibery_app/entidades/modelos/apis/delivery_endpoints.dart';
 import 'package:delibery_app/entidades/modelos/models/apiModels/categoria_model_id.dart';
 import 'package:delibery_app/entidades/modelos/models/apiModels/producto_model_id.dart';
 import 'package:delibery_app/entidades/modelos/models/apiModels/tienda_model.dart';
+import 'package:delibery_app/entidades/modelos/models/apiModels/venta_model.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -37,6 +38,36 @@ class DeliveryService {
       return {
         "status": 500,
         "message": "Error al obtener información del encargado"
+      };
+    }
+  }
+
+  Future<Map<String, dynamic>> getClienteInfo() async {
+    final prefs = await SharedPreferences.getInstance();
+    final int? id = prefs.getInt('usuario');
+    try {
+      final response = await _dio.get(DeliveryEndpoints.getCliente(id!));
+      return response.data;
+    } catch (e) {
+      print(e);
+      return {
+        "status": 500,
+        "message": "Error al obtener información del cliente"
+      };
+    }
+  }
+
+  Future<Map<String, dynamic>> getRepartidorInfo() async {
+    final prefs = await SharedPreferences.getInstance();
+    final int? id = prefs.getInt('usuario');
+    try {
+      final response = await _dio.get(DeliveryEndpoints.getRepartidor(id!));
+      return response.data;
+    } catch (e) {
+      print(e);
+      return {
+        "status": 500,
+        "message": "Error al obtener información del repartidor"
       };
     }
   }
@@ -109,6 +140,35 @@ class DeliveryService {
     } catch (error) {
       print('Error en la petición GET: $error');
       throw Exception('Error al cargar productos');
+    }
+  }
+
+  Future<List<ProductoModelId>> getProductosByTienda(int id) async {
+    try {
+      Response response =
+          await _dio.get(DeliveryEndpoints.getProductosByTienda(id));
+      print(response.data);
+      if (response.statusCode == 200) {
+        List<dynamic> data = response.data;
+        return data.map((json) => ProductoModelId.fromJson(json)).toList();
+      } else {
+        throw Exception('Error al cargar productos');
+      }
+    } catch (error) {
+      print('Error en la petición GET: $error');
+      throw Exception('Error al cargar productos');
+    }
+  }
+
+  Future<Map<String, dynamic>> crearVenta(VentaModel venta) async {
+    try {
+      final response = await _dio.post(DeliveryEndpoints.hacerComprar(),
+          data: venta.toJson());
+      print(response);
+      return response.data;
+    } catch (e) {
+      print(e);
+      return {"status": 500, "message": "Error al guardar la venta"};
     }
   }
 }
