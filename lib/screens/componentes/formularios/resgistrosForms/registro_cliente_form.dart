@@ -176,6 +176,7 @@ class _FormRegistroclienteState extends State<FormRegistrocliente> {
             const Titulos(title: "ingresar foto de perfil"),
             _gap(),
             Row(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -205,46 +206,55 @@ class _FormRegistroclienteState extends State<FormRegistrocliente> {
             ),
             _gap(),
             Row(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    ControlImagenes controlImagenes = ControlImagenes();
-                    controlImagenes.seleccionarImagen().then((File? value) {
-                      setState(() {
-                        _urlFoto = value;
+                Flexible(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      ControlImagenes controlImagenes = ControlImagenes();
+                      controlImagenes.seleccionarImagen().then((File? value) {
+                        setState(() {
+                          _urlFoto = value;
+                        });
                       });
-                    });
-                  },
-                  child: const Text('seleccionar imagen'),
+                    },
+                    child: const Text('seleccionar imagen',
+                        style: TextStyle(decoration: TextDecoration.underline)),
+                  ),
                 ),
                 const Padding(padding: EdgeInsets.all(10)),
-                ElevatedButton(
-                  onPressed: () {
-                    FuncionesFirebase firebase = FuncionesFirebase();
-                    if (_urlFoto == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text('Imagen no seleccionada')));
-                      return;
-                    }
-                    firebase.uploadImage(_urlFoto!, "perfil").then(
-                      (ImageModel value) {
-                        if (value.errorMessage != null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(value.errorMessage!)));
-                        } else {
-                          urlFotoController.text = value.url!;
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content:
-                                      Text('Imagen subida correctamente')));
-                          setState(() {
-                            urlFotoCheck = true;
-                          });
-                        }
-                      },
-                    );
-                  },
-                  child: const Text('Subir imagen'),
+                Flexible(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      FuncionesFirebase firebase = FuncionesFirebase();
+                      if (_urlFoto == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Imagen no seleccionada')));
+                        return;
+                      }
+                      firebase.uploadImage(_urlFoto!, "perfil").then(
+                        (ImageModel value) {
+                          if (value.errorMessage != null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(value.errorMessage!)));
+                          } else {
+                            urlFotoController.text = value.url!;
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content:
+                                        Text('Imagen subida correctamente')));
+                            setState(() {
+                              urlFotoCheck = true;
+                            });
+                          }
+                        },
+                      );
+                    },
+                    child: const Text('Subir imagen'),
+                  ),
                 ),
               ],
             ),

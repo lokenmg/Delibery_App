@@ -24,7 +24,6 @@ class _ProductosTiendaListviewState extends State<ProductosTiendaListview> {
           storeId = value['idTienda'];
           getProducts();
           exist = true;
-          print("existe $exist id $storeId");
         });
       }
     });
@@ -39,7 +38,6 @@ class _ProductosTiendaListviewState extends State<ProductosTiendaListview> {
         isLoading = false;
       });
     } catch (e) {
-      print("Error al cargar productos: $e");
       setState(() {
         isLoading = false;
       });
@@ -84,8 +82,8 @@ class _ProductosTiendaListviewState extends State<ProductosTiendaListview> {
                           ),
                         ),
                         onTap: () {
-                          Navigator.pushNamed(context, '/producto',
-                              arguments: producto);
+                          Navigator.pushNamed(context, '/actualizarProducto',
+                              arguments: producto.id);
                         },
                       ),
                     ),

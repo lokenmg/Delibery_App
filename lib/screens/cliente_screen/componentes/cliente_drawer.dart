@@ -23,7 +23,6 @@ class _DrawerClienteState extends State<DrawerCliente> {
   void getInfoBasicas() async {
     try {
       var response = await DeliveryService().getClienteInfo();
-      print(response);
       setState(() {
         infoBasicaModel = InfoBasicaModel.fromJson(response);
         isLoading = false;
@@ -33,7 +32,6 @@ class _DrawerClienteState extends State<DrawerCliente> {
         errorMessage = "Error al cargar la información";
         isLoading = false;
       });
-      print(error);
     }
   }
 
@@ -67,28 +65,34 @@ class _DrawerClienteState extends State<DrawerCliente> {
             ),
           ],
           ListTile(
+            leading: const Icon(Icons.cases_sharp),
+            title: const Text('misCompras'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/misCompras');
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.home),
             title: const Text('Inicio'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, '/homeencargado');
+              Navigator.pushNamed(context, '/homeclient');
             },
           ),
           ListTile(
             leading: const Icon(Icons.account_circle),
             title: const Text('Perfil'),
             onTap: () {
-              DeliveryService().getEncargadoInfo().then((value) {
-                print(value);
-              });
+              DeliveryService().getEncargadoInfo().then((value) {});
             },
           ),
           ListTile(
             leading: const Icon(Icons.settings),
-            title: const Text('Configuración'),
+            title: const Text('Mis Compras'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, '/settings');
+              Navigator.pushNamed(context, '/misCompras');
             },
           ),
           ListTile(
@@ -96,11 +100,23 @@ class _DrawerClienteState extends State<DrawerCliente> {
             title: const Text('Logout'),
             onTap: () async {
               await TokenServices.removeToken();
-              Navigator.pushReplacementNamed(context, "/login");
+              navigator();
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.info),
+            title: const Text('Acerca de nosotros'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/nosotros');
             },
           ),
         ],
       ),
     );
+  }
+
+  void navigator() {
+    Navigator.pushReplacementNamed(context, "/login");
   }
 }

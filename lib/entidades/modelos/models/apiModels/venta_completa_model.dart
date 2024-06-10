@@ -47,13 +47,13 @@ class VentaCompletaModel {
 class Detalle {
   final int cantidad;
   final String descripcion;
-  final int descuento;
+  final double descuento;
   final int idDetalleVenta;
   final int idProducto;
   final int idVenta;
   final String imagen;
   final String nombre;
-  final int precio;
+  final double precio;
 
   Detalle({
     required this.cantidad,

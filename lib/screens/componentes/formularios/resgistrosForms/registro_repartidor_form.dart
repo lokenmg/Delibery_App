@@ -217,44 +217,49 @@ class _FormRegistroRepartidorState extends State<FormRegistroRepartidor> {
           ),
           Row(
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  ControlImagenes controlImagenes = ControlImagenes();
-                  controlImagenes.seleccionarImagen().then((File? value) {
-                    setState(() {
-                      _urlFoto = value;
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () {
+                    ControlImagenes controlImagenes = ControlImagenes();
+                    controlImagenes.seleccionarImagen().then((File? value) {
+                      setState(() {
+                        _urlFoto = value;
+                      });
                     });
-                  });
-                },
-                child: const Text('seleccionar imagen'),
+                  },
+                  child: const Text('seleccionar imagen'),
+                ),
               ),
               const Padding(padding: EdgeInsets.all(10)),
-              ElevatedButton(
-                onPressed: () {
-                  if (_urlFoto == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Imagen no seleccionada')));
-                    return;
-                  }
-                  FuncionesFirebase firebase = FuncionesFirebase();
-                  firebase.uploadImage(_urlFoto!, "perfil").then(
-                    (ImageModel value) {
-                      if (value.errorMessage != null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(value.errorMessage!)));
-                      } else {
-                        urlFotoController.text = value.url!;
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Imagen subida correctamente')));
-                        setState(() {
-                          urlFotoCheck = true;
-                        });
-                      }
-                    },
-                  );
-                },
-                child: const Text('Subir imagen'),
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_urlFoto == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Imagen no seleccionada')));
+                      return;
+                    }
+                    FuncionesFirebase firebase = FuncionesFirebase();
+                    firebase.uploadImage(_urlFoto!, "perfil").then(
+                      (ImageModel value) {
+                        if (value.errorMessage != null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(value.errorMessage!)));
+                        } else {
+                          urlFotoController.text = value.url!;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text('Imagen subida correctamente')));
+                          setState(() {
+                            urlFotoCheck = true;
+                          });
+                        }
+                      },
+                    );
+                  },
+                  child: const Text('Subir imagen'),
+                ),
               ),
             ],
           ),
@@ -404,44 +409,49 @@ class _FormRegistroRepartidorState extends State<FormRegistroRepartidor> {
           ),
           Row(
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  ControlImagenes controlImagenes = ControlImagenes();
-                  controlImagenes.seleccionarImagen().then((File? value) {
-                    setState(() {
-                      _curp = value;
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () {
+                    ControlImagenes controlImagenes = ControlImagenes();
+                    controlImagenes.seleccionarImagen().then((File? value) {
+                      setState(() {
+                        _curp = value;
+                      });
                     });
-                  });
-                },
-                child: const Text('seleccionar imagen'),
+                  },
+                  child: const Text('seleccionar imagen'),
+                ),
               ),
               const Padding(padding: EdgeInsets.all(10)),
-              ElevatedButton(
-                onPressed: () {
-                  if (_urlFoto == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Imagen no seleccionada')));
-                    return;
-                  }
-                  FuncionesFirebase firebase = FuncionesFirebase();
-                  firebase.uploadImage(_curp!, "curp").then(
-                    (ImageModel value) {
-                      if (value.errorMessage != null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(value.errorMessage!)));
-                      } else {
-                        curpController.text = value.url!;
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Imagen subida correctamente')));
-                        setState(() {
-                          curpCheck = true;
-                        });
-                      }
-                    },
-                  );
-                },
-                child: const Text('Subir imagen'),
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_urlFoto == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Imagen no seleccionada')));
+                      return;
+                    }
+                    FuncionesFirebase firebase = FuncionesFirebase();
+                    firebase.uploadImage(_curp!, "curp").then(
+                      (ImageModel value) {
+                        if (value.errorMessage != null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(value.errorMessage!)));
+                        } else {
+                          curpController.text = value.url!;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text('Imagen subida correctamente')));
+                          setState(() {
+                            curpCheck = true;
+                          });
+                        }
+                      },
+                    );
+                  },
+                  child: const Text('Subir imagen'),
+                ),
               ),
             ],
           ),
@@ -473,44 +483,49 @@ class _FormRegistroRepartidorState extends State<FormRegistroRepartidor> {
           ),
           Row(
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  ControlImagenes controlImagenes = ControlImagenes();
-                  controlImagenes.seleccionarImagen().then((File? value) {
-                    setState(() {
-                      _ine = value;
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () {
+                    ControlImagenes controlImagenes = ControlImagenes();
+                    controlImagenes.seleccionarImagen().then((File? value) {
+                      setState(() {
+                        _ine = value;
+                      });
                     });
-                  });
-                },
-                child: const Text('Seleccionar imagen'),
+                  },
+                  child: const Text('Seleccionar imagen'),
+                ),
               ),
               const Padding(padding: EdgeInsets.all(10)),
-              ElevatedButton(
-                onPressed: () {
-                  if (_urlFoto == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Imagen no seleccionada')));
-                    return;
-                  }
-                  FuncionesFirebase firebase = FuncionesFirebase();
-                  firebase.uploadImage(_ine!, "ine").then(
-                    (ImageModel value) {
-                      if (value.errorMessage != null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(value.errorMessage!)));
-                      } else {
-                        ineController.text = value.url!;
-                        setState(() {
-                          ineCheck = true;
-                        });
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Imagen subida correctamente')));
-                      }
-                    },
-                  );
-                },
-                child: const Text('Subir imagen'),
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_urlFoto == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Imagen no seleccionada')));
+                      return;
+                    }
+                    FuncionesFirebase firebase = FuncionesFirebase();
+                    firebase.uploadImage(_ine!, "ine").then(
+                      (ImageModel value) {
+                        if (value.errorMessage != null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(value.errorMessage!)));
+                        } else {
+                          ineController.text = value.url!;
+                          setState(() {
+                            ineCheck = true;
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text('Imagen subida correctamente')));
+                        }
+                      },
+                    );
+                  },
+                  child: const Text('Subir imagen'),
+                ),
               ),
             ],
           ),
@@ -542,44 +557,49 @@ class _FormRegistroRepartidorState extends State<FormRegistroRepartidor> {
           ),
           Row(
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  ControlImagenes controlImagenes = ControlImagenes();
-                  controlImagenes.seleccionarImagen().then((File? value) {
-                    setState(() {
-                      _antecedentes = value;
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () {
+                    ControlImagenes controlImagenes = ControlImagenes();
+                    controlImagenes.seleccionarImagen().then((File? value) {
+                      setState(() {
+                        _antecedentes = value;
+                      });
                     });
-                  });
-                },
-                child: const Text('Seleccionar imagen'),
+                  },
+                  child: const Text('Seleccionar imagen'),
+                ),
               ),
               const Padding(padding: EdgeInsets.all(10)),
-              ElevatedButton(
-                onPressed: () {
-                  if (_urlFoto == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Imagen no seleccionada')));
-                    return;
-                  }
-                  FuncionesFirebase firebase = FuncionesFirebase();
-                  firebase.uploadImage(_antecedentes!, "Antecedentes").then(
-                    (ImageModel value) {
-                      if (value.errorMessage != null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(value.errorMessage!)));
-                      } else {
-                        antecedentesController.text = value.url!;
-                        setState(() {
-                          antecedentesCheck = true;
-                        });
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Imagen subida correctamente')));
-                      }
-                    },
-                  );
-                },
-                child: const Text('Subir imagen'),
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_urlFoto == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Imagen no seleccionada')));
+                      return;
+                    }
+                    FuncionesFirebase firebase = FuncionesFirebase();
+                    firebase.uploadImage(_antecedentes!, "Antecedentes").then(
+                      (ImageModel value) {
+                        if (value.errorMessage != null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(value.errorMessage!)));
+                        } else {
+                          antecedentesController.text = value.url!;
+                          setState(() {
+                            antecedentesCheck = true;
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text('Imagen subida correctamente')));
+                        }
+                      },
+                    );
+                  },
+                  child: const Text('Subir imagen'),
+                ),
               ),
             ],
           ),
@@ -669,44 +689,49 @@ class _FormRegistroRepartidorState extends State<FormRegistroRepartidor> {
           ),
           Row(
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  ControlImagenes controlImagenes = ControlImagenes();
-                  controlImagenes.seleccionarImagen().then((File? value) {
-                    setState(() {
-                      _repuve = value;
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () {
+                    ControlImagenes controlImagenes = ControlImagenes();
+                    controlImagenes.seleccionarImagen().then((File? value) {
+                      setState(() {
+                        _repuve = value;
+                      });
                     });
-                  });
-                },
-                child: const Text('Seleccionar imagen'),
+                  },
+                  child: const Text('Seleccionar imagen'),
+                ),
               ),
               const Padding(padding: EdgeInsets.all(10)),
-              ElevatedButton(
-                onPressed: () {
-                  if (_urlFoto == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Imagen no seleccionada')));
-                    return;
-                  }
-                  FuncionesFirebase firebase = FuncionesFirebase();
-                  firebase.uploadImage(_repuve!, "Repuve").then(
-                    (ImageModel value) {
-                      if (value.errorMessage != null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(value.errorMessage!)));
-                      } else {
-                        repuveController.text = value.url!;
-                        setState(() {
-                          antecedentesCheck = true;
-                        });
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Imagen subida correctamente')));
-                      }
-                    },
-                  );
-                },
-                child: const Text('Subir imagen'),
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_urlFoto == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Imagen no seleccionada')));
+                      return;
+                    }
+                    FuncionesFirebase firebase = FuncionesFirebase();
+                    firebase.uploadImage(_repuve!, "Repuve").then(
+                      (ImageModel value) {
+                        if (value.errorMessage != null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(value.errorMessage!)));
+                        } else {
+                          repuveController.text = value.url!;
+                          setState(() {
+                            antecedentesCheck = true;
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text('Imagen subida correctamente')));
+                        }
+                      },
+                    );
+                  },
+                  child: const Text('Subir imagen'),
+                ),
               ),
             ],
           ),
@@ -736,44 +761,49 @@ class _FormRegistroRepartidorState extends State<FormRegistroRepartidor> {
           ),
           Row(
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  ControlImagenes controlImagenes = ControlImagenes();
-                  controlImagenes.seleccionarImagen().then((File? value) {
-                    setState(() {
-                      _licencia = value;
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () {
+                    ControlImagenes controlImagenes = ControlImagenes();
+                    controlImagenes.seleccionarImagen().then((File? value) {
+                      setState(() {
+                        _licencia = value;
+                      });
                     });
-                  });
-                },
-                child: const Text('Seleccionar imagen'),
+                  },
+                  child: const Text('Seleccionar imagen'),
+                ),
               ),
               const Padding(padding: EdgeInsets.all(10)),
-              ElevatedButton(
-                onPressed: () {
-                  if (_urlFoto == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Imagen no seleccionada')));
-                    return;
-                  }
-                  FuncionesFirebase firebase = FuncionesFirebase();
-                  firebase.uploadImage(_licencia!, "Licencia").then(
-                    (ImageModel value) {
-                      if (value.errorMessage != null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(value.errorMessage!)));
-                      } else {
-                        licenciaController.text = value.url!;
-                        setState(() {
-                          antecedentesCheck = true;
-                        });
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Imagen subida correctamente')));
-                      }
-                    },
-                  );
-                },
-                child: const Text('Subir imagen'),
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_urlFoto == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Imagen no seleccionada')));
+                      return;
+                    }
+                    FuncionesFirebase firebase = FuncionesFirebase();
+                    firebase.uploadImage(_licencia!, "Licencia").then(
+                      (ImageModel value) {
+                        if (value.errorMessage != null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(value.errorMessage!)));
+                        } else {
+                          licenciaController.text = value.url!;
+                          setState(() {
+                            antecedentesCheck = true;
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text('Imagen subida correctamente')));
+                        }
+                      },
+                    );
+                  },
+                  child: const Text('Subir imagen'),
+                ),
               ),
             ],
           ),

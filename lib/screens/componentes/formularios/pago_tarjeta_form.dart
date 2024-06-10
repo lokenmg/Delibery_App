@@ -147,7 +147,6 @@ class _PagoTarjetaFormState extends State<PagoTarjetaForm> {
         MaterialButton(
           onPressed: () {
             if (_formkey.currentState!.validate()) {
-              print(fechaActual);
               final venta = VentaModel(
                   idCliente: id ?? 0,
                   fechaCreacion: fechaActual,
@@ -156,22 +155,23 @@ class _PagoTarjetaFormState extends State<PagoTarjetaForm> {
                   idRepartidor: 6,
                   idTipoPago: 1,
                   detalles: carrito);
-              print(venta.toJson());
               DeliveryService().crearVenta(venta).then((value) {
                 try {
-                  if (value['status'] == 200) {
-                    carritoProvider!.limpiarCarrito();
-                    limpiarVariables();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Pago realizado con éxito"),
-                      ),
-                    );
-                    Navigator.pop(context);
-                    Navigator.pushNamed(context, '/homeencargado');
-                  }
+                  carritoProvider!.limpiarCarrito();
+                  limpiarVariables();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Pago realizado con éxito"),
+                    ),
+                  );
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, '/homeclient');
                 } catch (e) {
-                  print(e);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Error al realizar el pago"),
+                    ),
+                  );
                 }
               });
             }

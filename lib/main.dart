@@ -1,6 +1,7 @@
 import 'package:delibery_app/config/theme/app_theme.dart';
 import 'package:delibery_app/entidades/modelos/models/providers/carrito_compras_provider.dart';
 import 'package:delibery_app/entidades/modelos/models/providers/info_login_provider.dart';
+import 'package:delibery_app/screens/encarcado_screens/encargado_componentes/actualizar_producto_screen.dart';
 import 'package:delibery_app/screens/index.dart';
 
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
     "/login": (context) => const Login(),
     "/registro": (context) => const Registro(),
     "/homeclient": (context) => const ClientHomeScreen(),
-    "/homeencargado": (context) => const ClientHomeScreen(),
+    "/homeencargado": (context) => const HomeEncargadoScreen(),
     "/AddStore": (context) => const AddStore(),
     "/AddProduct": (context) => const AddProductScreen(),
     "/producto": (context) => const ProductoScreen(),
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
     "/confirmarCompra": (context) => const ConfirmarCompraScreen(),
     "/metodoPago": (context) => const MetodoPago(),
     "/tienda": (context) => const TiendaScreen(),
+    "/misCompras": (context) => const MisComprasScreen(),
+    "/actualizarProducto": (context) => const ModificarProductoScreen(),
+    "/nosotros": (context) => const AcercaDeNosotrosScreen(),
   };
   MyApp({super.key});
 

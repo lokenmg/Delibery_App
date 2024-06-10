@@ -86,7 +86,7 @@ class _ProductoScreenState extends State<ProductoScreen> {
                   ),
                   Text(
                     contador.toString(),
-                    style: TextStyle(fontSize: 18),
+                    style: const TextStyle(fontSize: 18),
                   ),
                   IconButton(
                     onPressed: () {
@@ -103,15 +103,14 @@ class _ProductoScreenState extends State<ProductoScreen> {
                   ),
                   Text(
                     "Total: \$$total",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
               const SizedBox(height: 20),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.green,
-                    onPrimary: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32.0),
                     ),
@@ -123,9 +122,9 @@ class _ProductoScreenState extends State<ProductoScreen> {
                             producto: argument,
                             subtotal: contador == 0 ? argument.precio : total));
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: const Text('Agregar al carrito'),
+                  child: const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text('Agregar al carrito'),
                   )),
             ],
           ),

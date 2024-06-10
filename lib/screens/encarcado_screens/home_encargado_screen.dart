@@ -1,6 +1,5 @@
 import 'package:delibery_app/screens/encarcado_screens/encargado_componentes/drawer_encargado.dart';
 import 'package:delibery_app/screens/encarcado_screens/encargado_componentes/listview_productos_tienda.dart';
-import 'package:delibery_app/services/token_services.dart';
 import 'package:flutter/material.dart';
 
 class HomeEncargadoScreen extends StatefulWidget {
@@ -17,7 +16,6 @@ class _HomeEncargadoScreenState extends State<HomeEncargadoScreen> {
       drawer: const DrawerEncargado(),
       appBar: AppBar(
         title: const Text('Delibery App'),
-        actions: <Widget>[],
       ),
       body: const ProductosTiendaListview(),
     );

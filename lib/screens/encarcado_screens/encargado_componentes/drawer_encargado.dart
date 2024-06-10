@@ -1,5 +1,6 @@
 import 'package:delibery_app/entidades/modelos/models/apiModels/info_basica_model.dart';
 import 'package:delibery_app/services/delivery_service.dart';
+import 'package:delibery_app/services/token_services.dart';
 import 'package:flutter/material.dart';
 
 class DrawerEncargado extends StatefulWidget {
@@ -23,7 +24,6 @@ class _DrawerEncargadoState extends State<DrawerEncargado> {
   void getInfoBasicas() async {
     try {
       var response = await DeliveryService().getEncargadoInfo();
-      print(response);
       setState(() {
         infoBasicaModel = InfoBasicaModel.fromJson(response);
         isLoading = false;
@@ -33,7 +33,6 @@ class _DrawerEncargadoState extends State<DrawerEncargado> {
         errorMessage = "Error al cargar la información";
         isLoading = false;
       });
-      print(error);
     }
   }
 
@@ -67,7 +66,7 @@ class _DrawerEncargadoState extends State<DrawerEncargado> {
             ),
           ],
           ListTile(
-            leading: const Icon(Icons.store_rounded),
+            leading: const Icon(Icons.add_business_rounded),
             title: const Text('Agregar tienda'),
             onTap: () {
               Navigator.pop(context);
@@ -113,8 +112,20 @@ class _DrawerEncargadoState extends State<DrawerEncargado> {
               Navigator.pushNamed(context, '/settings');
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
+            onTap: () async {
+              await TokenServices.removeToken();
+              navigator();
+            },
+          ),
         ],
       ),
     );
+  }
+
+  void navigator() {
+    Navigator.pushReplacementNamed(context, "/login");
   }
 }

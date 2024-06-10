@@ -54,7 +54,7 @@ class _ConfirmarCompraScreenState extends State<ConfirmarCompraScreen> {
                 const SizedBox(height: 10),
                 Text(
                     "${cliente.direccion.calle1} ${cliente.direccion.calle2} ${cliente.direccion.calle3}, N° ${cliente.direccion.numeroExterior}, exterior ${cliente.direccion.numeroInterior}, ${cliente.direccion.municipio}, ${cliente.direccion.colonia}, ${cliente.direccion.estado}",
-                    style: TextStyle(fontSize: 16)),
+                    style: const TextStyle(fontSize: 16)),
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,7 +74,7 @@ class _ConfirmarCompraScreenState extends State<ConfirmarCompraScreen> {
                               fontSize: 16, fontWeight: FontWeight.bold)),
                     ),
                     Container(
-                      padding: const EdgeInsets.fromLTRB(90, 5, 10, 5),
+                      padding: const EdgeInsets.fromLTRB(70, 5, 10, 5),
                       child: const Text("Subtotal",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
@@ -112,8 +112,8 @@ class _ConfirmarCompraScreenState extends State<ConfirmarCompraScreen> {
                 ),
                 const SizedBox(height: 10),
                 Text("\$${carritoProvider.total}",
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 20),
                 ElevatedButton(
                     onPressed: () {

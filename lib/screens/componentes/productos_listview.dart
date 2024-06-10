@@ -28,7 +28,6 @@ class _ProductosListViewState extends State<ProductosListView> {
         isLoading = false;
       });
     } catch (e) {
-      print("Error al cargar productos: $e");
       setState(() {
         isLoading = false;
       });
@@ -54,7 +53,7 @@ class _ProductosListViewState extends State<ProductosListView> {
                           width: 90,
                           errorBuilder: (BuildContext context, Object exception,
                               StackTrace? stackTrace) {
-                            return Icon(Icons
+                            return const Icon(Icons
                                 .error); // Mostrar un ícono de error si la imagen no se carga
                           },
                         ),
@@ -62,7 +61,7 @@ class _ProductosListViewState extends State<ProductosListView> {
                         subtitle: Text(producto.descripcion),
                         trailing: Text(
                           "\$${producto.precio.toString()}",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 15,
                           ),
                         ),

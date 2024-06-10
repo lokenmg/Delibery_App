@@ -10,3 +10,5 @@ export 'package:delibery_app/screens/cliente_screen/confirmar_compra_screen.dart
 export 'package:delibery_app/screens/cliente_screen/metodo_pago.dart';
 export 'package:delibery_app/screens/componentes/tienda_screen.dart';
 export 'package:delibery_app/screens/encarcado_screens/home_encargado_screen.dart';
+export 'package:delibery_app/screens/cliente_screen/mis_compras_screen.dart';
+export 'package:delibery_app/screens/nosotros_screen.dart';

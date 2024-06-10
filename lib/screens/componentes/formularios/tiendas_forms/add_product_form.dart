@@ -53,7 +53,6 @@ class _AddProductFormState extends State<AddProductForm> {
         setState(() {
           storeId = value['idTienda'];
           exist = true;
-          print("existe $exist id $storeId");
         });
       }
     });
@@ -179,41 +178,47 @@ class _AddProductFormState extends State<AddProductForm> {
                 _gap(),
                 Row(
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        ControlImagenes controlImagenes = ControlImagenes();
-                        controlImagenes.seleccionarImagen().then((File? value) {
-                          setState(() {
-                            _urlFoto = value;
+                    Flexible(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          ControlImagenes controlImagenes = ControlImagenes();
+                          controlImagenes
+                              .seleccionarImagen()
+                              .then((File? value) {
+                            setState(() {
+                              _urlFoto = value;
+                            });
                           });
-                        });
-                      },
-                      child: const Text('seleccionar imagen'),
+                        },
+                        child: const Text('seleccionar imagen'),
+                      ),
                     ),
                     const Padding(padding: EdgeInsets.all(10)),
-                    ElevatedButton(
-                      onPressed: () {
-                        FuncionesFirebase firebase = FuncionesFirebase();
-                        firebase.uploadImage(_urlFoto!, "producto").then(
-                          (ImageModel value) {
-                            if (value.errorMessage != null) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text(value.errorMessage!)));
-                            } else {
-                              print("mi url ${value.url}");
-                              imagenController.text = value.url!;
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content:
-                                          Text('Imagen subida correctamente')));
-                              setState(() {
-                                urlFotoCheck = true;
-                              });
-                            }
-                          },
-                        );
-                      },
-                      child: const Text('Subir imagen'),
+                    Flexible(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          FuncionesFirebase firebase = FuncionesFirebase();
+                          firebase.uploadImage(_urlFoto!, "producto").then(
+                            (ImageModel value) {
+                              if (value.errorMessage != null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(value.errorMessage!)));
+                              } else {
+                                imagenController.text = value.url!;
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text(
+                                            'Imagen subida correctamente')));
+                                setState(() {
+                                  urlFotoCheck = true;
+                                });
+                              }
+                            },
+                          );
+                        },
+                        child: const Text('Subir imagen'),
+                      ),
                     ),
                   ],
                 ),

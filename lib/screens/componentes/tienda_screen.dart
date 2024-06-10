@@ -17,7 +17,6 @@ class _TiendaScreenState extends State<TiendaScreen> {
   void getStore() async {
     try {
       var response = await DeliveryService().getStore();
-      print(response);
       setState(() {
         tiendaModelId = TiendaModelId.fromJson(response);
         isLoading = false;
@@ -27,7 +26,6 @@ class _TiendaScreenState extends State<TiendaScreen> {
         errorMessage = "Error al cargar la información";
         isLoading = false;
       });
-      print(error);
     }
   }
 
